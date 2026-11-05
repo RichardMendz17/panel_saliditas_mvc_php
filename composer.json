@@ -1,0 +1,21 @@
+{
+    "name": "ricardo/uptask-mvc",
+    "description": "Proyecto SMPAyE_MVC",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "MVC\\" : "./",
+            "Controllers\\" : "./controllers",
+            "Model\\" : "./models",
+            "Classes\\": "classes/",
+            "Services\\": "services/"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.5",
+        "phpoffice/phpspreadsheet": "^4.4",
+        "phpoffice/phpword": "^1.4",
+        "dompdf/dompdf": "^3.1",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

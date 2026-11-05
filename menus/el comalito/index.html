@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>El Comalito | Guisados y antojitos mexicanos</title>
+    <meta name="description" content="Menú de El Comalito: guisados tradicionales, sopes, quesadillas, huaraches, gorditas, bebidas frescas y café de olla.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="El Comalito | Guisados y antojitos mexicanos">
+    <meta property="og:description" content="Conoce los guisados, antojitos mexicanos y bebidas preparados en El Comalito.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ea580c;
+            --primary-dark: #c2410c;
+            --bg: #fff7ed;
+            --card-bg: #ffffff;
+            --text-main: #2d1b0e;
+            --text-muted: #78350f;
+            --border: #fed7aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        /* --- NAVEGACIÓN RÁPIDA FLOTANTE (CHIPS) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 12px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            box-shadow: 0 10px 30px rgba(234, 88, 12, 0.15);
+        }
+        .bottom-nav::-webkit-scrollbar { display: none; }
+
+        .nav-chip {
+            padding: 8px 16px;
+            border-radius: 30px;
+            background: transparent;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            white-space: nowrap;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            letter-spacing: 0.5px;
+        }
+        .nav-chip.active, .nav-chip:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* --- HEADER --- */
+        .header {
+            background: var(--primary);
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary-dark);
+        }
+
+        .logo-container {
+            max-width: 140px;
+            margin: 0 auto;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+        }
+
+        /* --- BANNER DE IMÁGENES (CARRUSEL CADA 1.4 SEGUNDOS) --- */
+        .carousel-container {
+            position: relative;
+            max-width: 900px;
+            width: calc(100% - 30px);
+            margin: 25px auto 10px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+            background: #000;
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 20px 15px 12px 15px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px 15px 100px 15px;
+        }
+
+        /* --- BANNER DE ESTADO Y HORARIO --- */
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        .status-abierto { background: #22c55e; color: white; }
+        .status-cerrado { background: #ef4444; color: white; }
+
+        .info-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- SECCIÓN DE MENÚ --- */
+        .menu-header-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .desde {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            color: var(--primary-dark);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .menu-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .menu-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- CATEGORÍAS Y PRODUCTOS --- */
+        .categoria-section {
+            margin-bottom: 40px;
+            scroll-margin-top: 30px;
+        }
+
+        .categoria-header {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(234, 88, 12, 0.2);
+        }
+
+        .productos-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        @media(min-width: 650px) {
+            .productos-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+        }
+
+        .producto-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: var(--card-bg);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .producto-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .producto-nombre {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+            padding-right: 10px;
+        }
+
+        .producto-precio {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.05rem;
+            white-space: nowrap;
+        }
+
+        /* --- SECCIÓN MAPA --- */
+        .map-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 40px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            scroll-margin-top: 30px;
+        }
+
+        .map-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .mapa-container {
+            width: 100%;
+            height: 250px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .mapa-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            background: #1c0f07;
+            text-align: center;
+            padding: 30px 20px 90px 20px;
+            border-top: 1px solid #2d1b0e;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            color: #9ca3af;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .footer span {
+            color: #fb923c;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-slide img {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVEGACIÓN FLOTANTE POR CHIPS -->
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="#inicio" class="nav-chip active">Inicio</a>
+        <a href="#guisados" class="nav-chip">Guisados</a>
+        <a href="#antojitos" class="nav-chip">Antojitos</a>
+        <a href="#bebidas" class="nav-chip">Bebidas</a>
+        <a href="#ubicacion" class="nav-chip">Ubicación</a>
+    </nav>
+
+    <!-- HEADER COMPACTO Y FLUIDO -->
+    <header class="header" id="inicio">
+        <div class="logo-container">
+            <img src="logo.webp" alt="El Comalito" onerror="this.src='https://via.placeholder.com/140x60?text=El+Comalito'">
+        </div>
+    </header>
+
+    <!-- BANNER DE IMÁGENES (CAMBIO CADA 1.4 SEGUNDOS) -->
+    <div class="carousel-container">
+        <div class="carousel-slides" id="carouselSlides">
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=80" alt="Comida tradicional mexicana">
+                <div class="carousel-caption">¡Disfruta nuestro sazón original!</div>
+            </div>
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=900&q=80" alt="Antojitos mexicanos">
+                <div class="carousel-caption">Deliciosos antojitos preparados al momento</div>
+            </div>
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Especialidades de la casa">
+                <div class="carousel-caption">Ingredientes frescos y de la mejor calidad</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- CABECERA DEL MENÚ -->
+        <div class="menu-header-title">
+            <div class="desde">DESDE 2004</div>
+            <h1 class="menu-title">EL COMALITO</h1>
+            <div class="menu-subtitle">SABOR ORIGINAL</div>
+        </div>
+
+        <!-- TARJETA DE ESTADO Y HORARIO -->
+        <div class="info-card">
+            <div id="statusBadge" class="status-badge status-cerrado">
+                <i class="fa-solid fa-circle" style="font-size: 8px;"></i> <span id="statusText">VERIFICANDO HORARIO...</span>
+            </div>
+            <p><strong>Horario de atención:</strong> Lunes a Sábado · 8:00 AM - 5:00 PM</p>
+            <p>Domingo · Cerrado</p>
+        </div>
+
+        <!-- CATEGORÍA 1: GUISADOS -->
+        <section id="guisados" class="categoria-section">
+            <h2 class="categoria-header">Guisados Tradicionales</h2>
+            <div class="productos-grid">
+                <div class="producto-item">
+                    <span class="producto-nombre">Bistec en Salsa Verde</span>
+                    <span class="producto-precio">$85.00</span>
+                </div>
+                <div class="producto-item">
+                    <span class="producto-nombre">Chicharrón en Salsa Roja</span>
+                    <span class="producto-precio">$80.00</span>
+                </div>
+                <div class="producto-item">
+                    <span class="producto-nombre">Pollo con Mole</span>
+                    <span class="producto-precio">$90.00</span>
+                </div>
+                <div class="producto-item">
+                    <span class="producto-nombre">Tinga de Pollo</span>
+                    <span class="producto-precio">$75.00</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORÍA 2: ANTOJITOS -->
+        <section id="antojitos" class="categoria-section">
+            <h2 class="categoria-header">Antojitos & Comal</h2>
+            <div class="productos-grid">
+                <div class="producto-item">
+                    <span class="producto-nombre">Orden de Sopes (3 pzas)</span>
+                    <span class="producto-precio">$65.00</span>
+                </div>
+                <div class="producto-item">
+                    <span class="producto-nombre">Quesadillas con Queso</span>
+                    <span class="producto-precio">$35.00</span>
+                </div>
+                <div class="producto-item">
+                    <span class="producto-nombre">Huarache Especial</span>
+                    <span class="producto-precio">$95.00</span>
+                </div>
+                <div class="producto-item">
+                    <span class="producto-nombre">Gorditas de Chicharrón</span>
+                    <span class="producto-precio">$30.00</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORÍA 3: BEBIDAS -->
+        <section id="bebidas" class="categoria-section">
+            <h2 class="categoria-header">Bebidas Frescas</h2>
+            <div class="productos-grid">
+                <div class="producto-item">
+                    <span class="producto-nombre">Agua Fresca del Día (Litro)</span>
+                    <span class="producto-precio">$35.00</span>
+                </div>
+                <div class="producto-item">
+                    <span class="producto-nombre">Refresco de Sabor / Cola</span>
+                    <span class="producto-precio">$25.00</span>
+                </div>
+                <div class="producto-item">
+                    <span class="producto-nombre">Café de Olla</span>
+                    <span class="producto-precio">$20.00</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAPA Y UBICACIÓN -->
+        <section id="ubicacion" class="map-section">
+            <h2 class="map-title">¿Dónde Encontrarnos?</h2>
+            <div class="mapa-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3748.5061738671525!2d-98.79810982477018!3d20.0292303813816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjDCsDAxJzQ1Ii4yTiA5OMKwNDcnNDMuOSJX!5e0!3m2!1ses!2smx!4v1779468267518!5m2!1ses!2smx" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER CON MARCA SALIDITAS -->
+    <footer class="footer">
+        <p>DESARROLLADO POR <span>SALIDITAS.COM.MX</span></p>
+    </footer>
+
+    <script>
+        // Carrusel automático configurado exactamente a 1.4 segundos (1400 milisegundos)
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+
+        if (totalSlides > 1) {
+            function changeSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                const carouselSlides = document.getElementById('carouselSlides');
+                carouselSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            setInterval(changeSlide, 1400);
+        }
+
+        // Verificador de horario en tiempo real para México (Centro)
+        function checkBusinessStatus() {
+            const d = new Date();
+            const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            const mexicoTime = new Date(utc + (3600000 * -6)); 
+            
+            const day = mexicoTime.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+            const hour = mexicoTime.getHours();
+
+            const badge = document.getElementById('statusBadge');
+            const text = document.getElementById('statusText');
+
+            // Lunes (1) a Sábado (6) de 8:00 a 17:00
+            if (day >= 1 && day <= 6 && hour >= 8 && hour < 17) {
+                badge.className = "status-badge status-abierto";
+                text.textContent = "ABIERTO AHORA";
+            } else {
+                badge.className = "status-badge status-cerrado";
+                text.textContent = "CERRADO AHORA";
+            }
+        }
+        checkBusinessStatus();
+
+        // Sistema de navegación por chips activos al hacer scroll
+        const chips = document.querySelectorAll('.nav-chip');
+        const sections = document.querySelectorAll('.categoria-section, .map-section, #inicio');
+
+        window.addEventListener('scroll', () => {
+            let current = "";
+            sections.forEach(sec => {
+                const top = sec.offsetTop;
+                if (window.pageYOffset >= top - 150) {
+                    current = sec.getAttribute('id');
+                }
+            });
+
+            chips.forEach(chip => {
+                chip.classList.remove('active');
+                if (chip.getAttribute('href') === `#${current}`) {
+                    chip.classList.add('active');
+                    chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

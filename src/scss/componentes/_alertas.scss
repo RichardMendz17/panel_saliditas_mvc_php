@@ -1,0 +1,41 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.alerta {
+    padding: 1rem 1rem 1rem 2rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin: 1.5rem 0;
+    font-size: 1.4rem;
+    max-width: 80rem;
+    text-align: center;
+
+    &.error
+    {
+        background-color: lighten(v.$rosa, 60%);
+        border-left: .5rem solid v.$rojo;
+        color: v.$rojo;
+    }
+
+    &.exito
+    {
+        background-color: lighten(v.$verde, 60%);
+        border-left: .5rem solid v.$verde;
+        color: v.$verde;
+    }
+
+    &.aceptable
+    {
+        background-color: lighten(v.$azul, 60%);
+        border-left: .5rem solid v.$azul;
+        color: v.$azul;
+    }
+    
+    &.riesgo
+    {
+        background-color: lighten(v.$amarillo, 60%);
+        border-left: .5rem solid v.$amarillo;
+        color: v.$amarillo;
+    }
+
+}

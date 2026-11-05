@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>La Fresita de Gris | Fresas con crema y bebidas</title>
+    <meta name="description" content="Descubre el menú de La Fresita de Gris: fresas con crema, cócteles, papas, nachos, bebidas calientes, licuados, aguas frescas y toppings.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="La Fresita de Gris | Menú">
+    <meta property="og:description" content="Fresas con crema, bebidas, cócteles y antojitos en el menú de La Fresita de Gris.">
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #123524;
+            --bg-light: #ebfaf2;
+            --primary: #2d6a4f;
+            --primary-light: #52b788;
+            --text-dark: #0e2c23;
+            --text-muted: #457b66;
+            --card-bg: #ffffff;
+        }
+
+        /* RESET TOTAL Y PREVENCIÓN DE SCROLL HORIZONTAL */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            background: var(--bg-dark);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .menu-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 15px 140px 15px;
+            background: var(--bg-light);
+            min-height: 100vh;
+            border-radius: 0 0 32px 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* --- HEADER & LOGO --- */
+        .logo-png-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 10px auto 40px auto;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .logo-png {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+        }
+
+        .logo-texto {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+        .logo-texto span {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-top: 5px;
+        }
+
+        /* --- MENÚ FLOTANTE INTUITIVO --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 94%;
+            max-width: 600px;
+            background: rgba(18, 53, 36, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--primary-light);
+            border-radius: 40px;
+            padding: 8px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(82, 183, 136, 0.2);
+        }
+        .bottom-nav::-webkit-scrollbar { display: none; }
+
+        .nav-chip {
+            padding: 12px 20px;
+            border-radius: 30px;
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-chip i { color: var(--primary-light); font-size: 1rem; }
+        .nav-chip.active {
+            background: var(--primary-light);
+            color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(82, 183, 136, 0.4);
+        }
+        .nav-chip.active i { color: var(--text-dark); }
+
+        /* --- SECCIONES --- */
+        .menu-section {
+            margin-bottom: 45px;
+            scroll-margin-top: 25px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 24px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
+        }
+
+        .section-img {
+            width: 65px;
+            height: 65px;
+            border-radius: 20px;
+            background: #e4f3ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .section-title-wrap { flex: 1; }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        .section-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* --- IMAGEN PROMOCIONAL FLUIDA --- */
+        .custom-img-container {
+            width: 100%;
+            height: 180px;
+            background: #e4f3ed;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #cfe8df;
+        }
+        .custom-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .custom-img-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--primary-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            gap: 10px;
+        }
+        .custom-img-placeholder i { font-size: 2.5rem; }
+
+        /* --- GRID DE PRODUCTOS --- */
+        .items-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        @media(min-width: 600px) {
+            .items-grid { grid-template-columns: repeat(2, 1fr); }
+            .custom-img-container { height: 220px; }
+        }
+
+        /* --- TARJETAS DE MENÚ --- */
+        .menu-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #d6ede2;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .menu-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .card-title {
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px dotted #cbe5da;
+            line-height: 1.3;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed #ecf6f1;
+        }
+        .price-item:last-child { border-bottom: none; }
+
+        .price-value {
+            font-weight: 800;
+            background: #e9f5ef;
+            padding: 4px 14px;
+            border-radius: 30px;
+            color: var(--primary);
+        }
+
+        .note-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+            line-height: 1.4;
+            background: #f8fbf9;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+
+        .topping-badge {
+            background: #fff8eb;
+            color: #d97706;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 20px;
+            padding: 6px 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            align-self: flex-start;
+            border: 1px solid #fef3c7;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            background: #e4f3ed;
+            padding: 25px 20px 35px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        footer i { color: var(--primary-light); margin-right: 5px; }
+        
+        .powered {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .powered a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+<div class="menu-container">
+    
+    <!-- HEADER -->
+    <div class="logo-png-container">
+        <img class="logo-png" src="logo_gris.webp" alt="Logotipo de La Fresita de Gris" onerror="this.src='https://placehold.co/400x200/e4f3ed/2d6a4f?text=LA+FRESITA+DE+GRIS'">
+        <h1 class="logo-texto">La Fresita de Gris</h1>
+        <p class="logo-texto">
+            Comprometidos en ofrecerle sabor, calidad e higiene
+            <span>💯% calidad en todos nuestros productos</span>
+        </p>
+    </div>
+
+    <!-- 1. COCKTAILS -->
+    <section id="cocktails" class="menu-section">
+        <div class="section-header">
+            <div class="section-img"><i class="fas fa-martini-glass-citrus"></i></div>
+            <div class="section-title-wrap">
+                <h2 class="section-title">Cócteles</h2>
+                <div class="section-sub">Frescura natural · combinaciones especiales</div>
+            </div>
+        </div>
+        <div class="custom-img-container">
+            <img src="coctel.webp" alt="Cocktails" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="custom-img-placeholder" style="display:none;">
+                <i class="fas fa-image"></i><span>Imagen no disponible</span>
+            </div>
+        </div>
+        <div class="items-grid">
+            <div class="menu-card">
+                <div class="card-title">Mojito Clásico</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Único</span><span class="price-value">$80.00</span></div>
+                </div>
+                <div class="note-text">Ron blanco, hierbabuena fresca, limón y un toque de soda.</div>
+            </div>
+            <div class="menu-card">
+                <div class="card-title">Piña Colada</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Único</span><span class="price-value">$90.00</span></div>
+                </div>
+                <div class="topping-badge"><i class="fas fa-star"></i> Favorito</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. FRESAS CON CREMA -->
+    <section id="fresas" class="menu-section">
+        <div class="section-header">
+            <div class="section-img"><i class="fas fa-bowl-food"></i></div>
+            <div class="section-title-wrap">
+                <h2 class="section-title">Fresas con crema</h2>
+                <div class="section-sub">Frescura natural · combinaciones especiales</div>
+            </div>
+        </div>
+        <div class="custom-img-container">
+            <img src="fresas.webp" alt="Fresas" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="custom-img-placeholder" style="display:none;">
+                <i class="fas fa-image"></i><span>Imagen no disponible</span>
+            </div>
+        </div>
+        <div class="items-grid">
+            <div class="menu-card">
+                <div class="card-title">Fresas con Crema</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Chico</span><span class="price-value">$50.00</span></div>
+                    <div class="price-item"><span>Grande</span><span class="price-value">$85.00</span></div>
+                </div>
+                <div class="note-text">Preparadas con nuestra receta secreta de crema dulce artesanal.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SALADOS -->
+    <section id="salados" class="menu-section">
+        <div class="section-header">
+            <div class="section-img"><i class="fas fa-hotdog"></i></div>
+            <div class="section-title-wrap">
+                <h2 class="section-title">Antojitos salados</h2>
+                <div class="section-sub">Frescura natural · combinaciones especiales</div>
+            </div>
+        </div>
+        <div class="custom-img-container">
+            <img src="salados.webp" alt="Salados" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="custom-img-placeholder" style="display:none;">
+                <i class="fas fa-image"></i><span>Imagen no disponible</span>
+            </div>
+        </div>
+        <div class="items-grid">
+            <div class="menu-card">
+                <div class="card-title">Papas a la Francesa</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Orden</span><span class="price-value">$50.00</span></div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="card-title">Nachos Especiales</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Orden</span><span class="price-value">$70.00</span></div>
+                </div>
+                <div class="note-text">Con queso cheddar derretido y jalapeños.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. BEBIDAS (CAFÉ) -->
+    <section id="bebidas" class="menu-section">
+        <div class="section-header">
+            <div class="section-img"><i class="fas fa-mug-hot"></i></div>
+            <div class="section-title-wrap">
+                <h2 class="section-title">Bebidas calientes</h2>
+                <div class="section-sub">Frescura natural · combinaciones especiales</div>
+            </div>
+        </div>
+        <div class="custom-img-container">
+            <img src="cafe.webp" alt="Café" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="custom-img-placeholder" style="display:none;">
+                <i class="fas fa-image"></i><span>Imagen no disponible</span>
+            </div>
+        </div>
+        <div class="items-grid">
+            <div class="menu-card">
+                <div class="card-title">Café Americano</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Único</span><span class="price-value">$30.00</span></div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="card-title">Capuchino Clásico</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Único</span><span class="price-value">$45.00</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. LICUADOS -->
+    <section id="licuados" class="menu-section">
+        <div class="section-header">
+            <div class="section-img"><i class="fas fa-blender"></i></div>
+            <div class="section-title-wrap">
+                <h2 class="section-title">Licuados</h2>
+                <div class="section-sub">Frescura natural · combinaciones especiales</div>
+            </div>
+        </div>
+        <div class="custom-img-container">
+            <img src="licuados.webp" alt="Licuados" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="custom-img-placeholder" style="display:none;">
+                <i class="fas fa-image"></i><span>Imagen no disponible</span>
+            </div>
+        </div>
+        <div class="items-grid">
+            <div class="menu-card">
+                <div class="card-title">Licuado de Plátano</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Único</span><span class="price-value">$40.00</span></div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="card-title">Licuado de Fresa</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Único</span><span class="price-value">$45.00</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. AGUAS FRESCAS -->
+    <section id="aguas" class="menu-section">
+        <div class="section-header">
+            <div class="section-img"><i class="fas fa-glass-water"></i></div>
+            <div class="section-title-wrap">
+                <h2 class="section-title">Aguas frescas</h2>
+                <div class="section-sub">Frescura natural · combinaciones especiales</div>
+            </div>
+        </div>
+        <div class="custom-img-container">
+            <img src="aguas.webp" alt="Aguas" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="custom-img-placeholder" style="display:none;">
+                <i class="fas fa-image"></i><span>Imagen no disponible</span>
+            </div>
+        </div>
+        <div class="items-grid">
+            <div class="menu-card">
+                <div class="card-title">Agua de Horchata</div>
+                <div class="price-list">
+                    <div class="price-item"><span>1 Litro</span><span class="price-value">$30.00</span></div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="card-title">Agua de Jamaica</div>
+                <div class="price-list">
+                    <div class="price-item"><span>1 Litro</span><span class="price-value">$30.00</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. TOPPINGS -->
+    <section id="toppings" class="menu-section">
+        <div class="section-header">
+            <div class="section-img"><i class="fas fa-star"></i></div>
+            <div class="section-title-wrap">
+                <h2 class="section-title">Toppings</h2>
+                <div class="section-sub">Personaliza tus bebidas y postres</div>
+            </div>
+        </div>
+        <div class="custom-img-container">
+            <img src="toppings.webp" alt="Toppings" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="custom-img-placeholder" style="display:none;">
+                <i class="fas fa-image"></i><span>Imagen no disponible</span>
+            </div>
+        </div>
+        <div class="items-grid">
+            <div class="menu-card">
+                <div class="card-title">Chispas de Chocolate</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Extra</span><span class="price-value">$10.00</span></div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="card-title">Nuez Picada</div>
+                <div class="price-list">
+                    <div class="price-item"><span>Extra</span><span class="price-value">$15.00</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SALIDITAS -->
+    <footer>
+        <i class="fas fa-leaf"></i> Ingredientes frescos · Toppings disponibles · Sabores que enamoran
+        <div class="powered">Desarrollado por <a href="https://saliditas.com.mx" target="_blank">saliditas.com.mx</a></div>
+    </footer>
+</div>
+
+<!-- NAVEGACIÓN FLOTANTE -->
+<nav class="bottom-nav">
+    <a href="#cocktails" class="nav-chip active" data-section="cocktails"><i class="fas fa-martini-glass-citrus"></i> Cocktails</a>
+    <a href="#fresas" class="nav-chip" data-section="fresas"><i class="fas fa-bowl-food"></i> Fresas</a>
+    <a href="#salados" class="nav-chip" data-section="salados"><i class="fas fa-hotdog"></i> Salados</a>
+    <a href="#bebidas" class="nav-chip" data-section="bebidas"><i class="fas fa-mug-hot"></i> Bebidas</a>
+    <a href="#licuados" class="nav-chip" data-section="licuados"><i class="fas fa-blender"></i> Licuados</a>
+    <a href="#aguas" class="nav-chip" data-section="aguas"><i class="fas fa-glass-water"></i> Aguas</a>
+    <a href="#toppings" class="nav-chip" data-section="toppings"><i class="fas fa-star"></i> Toppings</a>
+</nav>
+
+<script>
+    // Lógica inteligente para el Menú Flotante
+    const chips = document.querySelectorAll('.nav-chip');
+    const sections = {};
+    
+    document.querySelectorAll('.menu-section').forEach(section => {
+        sections[section.id] = section;
+    });
+
+    // Función para actualizar y auto-centrar el chip activo
+    function updateActiveChip() {
+        const scrollPosition = window.scrollY + 120; // Offset visual
+        
+        for (const [id, section] of Object.entries(sections)) {
+            if (section) {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                
+                if (scrollPosition >= top && scrollPosition < bottom) {
+                    chips.forEach(chip => {
+                        if (chip.dataset.section === id && !chip.classList.contains('active')) {
+                            // Remover activo de todos
+                            chips.forEach(c => c.classList.remove('active'));
+                            // Agregar activo al actual
+                            chip.classList.add('active');
+                            // Auto-centrar en el contenedor móvil suavemente
+                            chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    // Scroll manual al hacer clic en un chip
+    chips.forEach(chip => {
+        chip.addEventListener('click', (e) => {
+            e.preventDefault(); // Evita el salto brusco del href
+            const sectionId = chip.dataset.section;
+            if (sections[sectionId]) {
+                sections[sectionId].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    window.addEventListener('scroll', updateActiveChip);
+    window.addEventListener('resize', updateActiveChip);
+    
+    // Disparar una vez al cargar
+    setTimeout(updateActiveChip, 100);
+</script>
+</body>
+</html>

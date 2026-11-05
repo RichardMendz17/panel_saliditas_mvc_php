@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú | Rica Barbacoa García</title>
+
+<!-- Fonts: Playfair Display for Headings/Logo, Poppins for Body -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- GSAP for smooth animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+    /* CSS Variables for Minimalist Palette */
+    :root {
+        --bg-color: #F7EFE8; /* Warm rustic beige */
+        --text-dark: #3A2318; /* Deep roasted brown */
+        --text-muted: #6B4938; /* Clay brown */
+        --accent-gold: #C05640; /* Terracotta / Clay red */
+        --card-bg: #FCF9F5;
+        --border-color: #E6D8CE;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* HEADER & TYPOGRAPHIC LOGO */
+    header {
+        background: var(--text-dark);
+        padding: 45px 20px;
+        text-align: center;
+        border-bottom: 4px solid var(--accent-gold);
+        box-shadow: 0 4px 20px rgba(58, 35, 24, 0.15);
+    }
+
+    .brand-logo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .brand-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: var(--bg-color);
+        line-height: 1.1;
+        letter-spacing: 0.5px;
+    }
+
+    .brand-subtitle {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 6px;
+        color: var(--accent-gold);
+        text-transform: uppercase;
+        margin-top: 8px;
+    }
+
+    /* MAIN CONTAINER & GRID LAYOUT */
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+    }
+
+    /* MENU CARDS (Flexbox instead of floats) */
+    .menu-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        box-shadow: 0 6px 16px rgba(58, 35, 24, 0.04);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .menu-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(58, 35, 24, 0.08);
+        border-color: var(--accent-gold);
+    }
+
+    .card-img {
+        width: 90px;
+        height: 90px;
+        border-radius: 12px;
+        object-fit: cover;
+        flex-shrink: 0;
+        border: 2px solid var(--border-color);
+    }
+
+    .card-content {
+        flex-grow: 1;
+    }
+
+    .card-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+        border-bottom: 2px solid var(--accent-gold);
+        display: inline-block;
+        padding-bottom: 2px;
+    }
+
+    .card-desc {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-weight: 300;
+        margin-bottom: 6px;
+    }
+
+    .card-subtext {
+        font-size: 0.8rem;
+        color: #887B75;
+        font-style: italic;
+    }
+
+    /* LISTS INSIDE CARDS */
+    .card-list {
+        list-style: none;
+    }
+
+    .card-list li {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-weight: 400;
+        padding: 2px 0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .card-list li::before {
+        content: "•";
+        color: var(--accent-gold);
+        font-size: 1.2rem;
+    }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .tag {
+        background: var(--bg-color);
+        color: var(--text-dark);
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+    }
+
+    /* BEBIDAS SPECIAL SPAN */
+    .menu-card.full-width {
+        grid-column: 1 / -1;
+        flex-direction: column;
+    }
+
+    .bebidas-images {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    .bebidas-images img {
+        width: 120px;
+        height: 120px;
+        border-radius: 12px;
+        object-fit: cover;
+    }
+
+    /* FOOTER */
+    footer {
+        background: var(--text-dark);
+        color: var(--bg-color);
+        padding: 60px 20px 40px;
+        border-top: 4px solid var(--accent-gold);
+    }
+
+    .footer-wrap {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #FFF;
+    }
+
+    .footer-info {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .footer-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+        color: #D1C9C4;
+    }
+
+    .footer-icon {
+        width: 20px;
+        height: 20px;
+        fill: var(--accent-gold);
+    }
+
+    .footer-link {
+        color: var(--accent-gold);
+        text-decoration: none;
+        transition: opacity 0.2s;
+    }
+
+    .footer-link:hover {
+        opacity: 0.8;
+    }
+
+    .footer-bottom {
+        margin-top: 40px;
+        font-size: 0.85rem;
+        color: #887B75;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        width: 100%;
+    }
+
+    /* MAP CONTAINER */
+    .map-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto 30px auto;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 2px solid var(--accent-gold);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    /* WHATSAPP FLOATING BUTTON */
+    .whatsapp-float {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #25D366;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        z-index: 999;
+        transition: transform 0.3s ease;
+    }
+
+    .whatsapp-float:hover {
+        transform: scale(1.08);
+    }
+
+    .whatsapp-float svg {
+        width: 30px;
+        height: 30px;
+        fill: #FFF;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+        .brand-title { font-size: 2.2rem; }
+        .menu-card { flex-direction: column; align-items: center; text-align: center; }
+        .card-title { display: block; margin: 0 auto 10px; }
+        .card-list li { justify-content: center; }
+        .tags { justify-content: center; }
+        .bebidas-images { justify-content: center; flex-wrap: wrap; }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand-logo">
+        <h1 class="brand-title">Rica Barbacoa</h1>
+        <div class="brand-subtitle">García</div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="menu-grid">
+
+        <!-- Card 1 -->
+        <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=300&q=80" alt="Especialidades de Barbacoa" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Especialidades</h2>
+                <ul class="card-list">
+                    <li>Barbacoa por kilo</li>
+                    <li>Barbacoa en taco</li>
+                    <li>Rico Consomé</li>
+                    <li>Gorditas Michoacanas</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1584331412030-80ea47fcc180?auto=format&fit=crop&w=300&q=80" alt="Sopes Tradicionales" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Sopes</h2>
+                <p class="card-desc">Tierritas, Pollo, Nopales, Tripa, Barbacoa y Huevo.</p>
+                <p class="card-subtext">Hechos a mano al momento.</p>
+            </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=300&q=80" alt="Tlacoyos" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Tlacoyos</h2>
+                <p class="card-desc">Rellenos de Frijol, Alberjón, Papa o Requesón.</p>
+                <p class="card-subtext">Acompañados de Quelites, Nopales o Queso fresco.</p>
+            </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&w=300&q=80" alt="Quesadillas Variadas" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Quesadillas</h2>
+                <p class="card-subtext" style="margin-bottom: 8px;">(Disponibles con o sin queso)</p>
+                <div class="tags">
+                    <span class="tag">Bistec</span>
+                    <span class="tag">Pastor</span>
+                    <span class="tag">Flor de Calabaza</span>
+                    <span class="tag">Champiñón</span>
+                    <span class="tag">Tinga</span>
+                    <span class="tag">Chicharrón</span>
+                    <span class="tag">Huitlacoche</span>
+                    <span class="tag">Barbacoa</span>
+                    <span class="tag">Pollo</span>
+                </div>
+                <p class="card-subtext" style="margin-top: 10px;">Y más guisados tradicionales...</p>
+            </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?auto=format&fit=crop&w=300&q=80" alt="Antojitos y Flautas" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Antojitos & Flautas</h2>
+                <p class="card-desc"><b>Flautas:</b> Pollo, Papa, Frijoles, Barbacoa, Queso.</p>
+                <p class="card-desc"><b>Especialidades:</b> Chalupas, Pambazo, Guajolotes, Tacos Dorados.</p>
+            </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=300&q=80" alt="Platos Preparados" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Platos Preparados</h2>
+                <ul class="card-list">
+                    <li>Mole de panza (Grande / Chico)</li>
+                    <li>Enchiladas y Chilaquiles</li>
+                    <li>Tlacoyos Ahogados</li>
+                    <li>Enmoladas Clásicas</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Card 7 (Full Width) -->
+        <article class="menu-card full-width">
+            <div class="card-content" style="width: 100%;">
+                <h2 class="card-title">Bebidas</h2>
+                <p class="card-desc">Refresco, Aguas frescas del día, Café de olla y Té.</p>
+                <div class="bebidas-images">
+                    <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=300&q=80" alt="Refrescos">
+                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" alt="Aguas Frescas">
+                    <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=300&q=80" alt="Café">
+                </div>
+            </div>
+        </article>
+
+    </div>
+</div>
+
+<footer>
+    <div class="footer-wrap">
+        <div class="footer-title">Rica Barbacoa García</div>
+
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3746.133882285916!2d-98.7299785!3d20.128461399999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1091c3f226559%3A0xc9117d6da3300bc3!2sBarbacoa%20y%20quesadillas%20%22Garc%C3%ADa%22!5e0!3m2!1ses-419!2smx!4v1792525677206!5m2!1ses-419!2smx" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+
+        <div class="footer-info">
+            <!-- Location Icon & Text -->
+            <div class="footer-item">
+                <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                    <path d="M168 0C75.1 0 0 75.1 0 168c0 87.3 136.4 232.1 146.1 242.7 6.2 6.3 16.5 6.3 22.7 0C207.6 400.1 344 255.3 344 168 344 75.1 268.9 0 176 0zM176 256c-48.5 0-88-39.5-88-88s39.5-88 88-88 88 39.5 88 88-39.5 88-88 88z"/>
+                </svg>
+                Mercado Primero de Mayo, Pachuca de Soto, Hidalgo
+            </div>
+
+            <!-- Phone Icon & Text -->
+            <div class="footer-item">
+                <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M493.4 24.6l-104-24c-11.1-2.6-22.7 1.6-29.3 11.1L304 107.9c-5.2 7.5-6.5 17.2-3.3 25.9l45 112c-56.5 104.6-145.5 193.7-250.1 250.1l-112-45c-8.7-3.2-18.4-1.9-25.9 3.3L17.9 375.7c-9.5 6.6-13.7 18.2-11.1 29.3l24 104C34.5 510.4 43.4 520 54.7 520c256.1 0 464-207.5 464-464 0-11.3-9.6-20.2-20.6-20.2z"/>
+                </svg>
+                <a href="https://wa.me/527711913097" class="footer-link" target="_blank">Enviar Mensaje: 771 191 3097</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 Rica Barbacoa García · <a href="https://saliditas.mx" class="footer-link" target="_blank">Powered by Saliditas</a>
+        </div>
+    </div>
+</footer>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/527711913097" class="whatsapp-float" target="_blank" aria-label="Chat en WhatsApp">
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.11 17.44c-.27-.13-1.59-.78-1.84-.87-.25-.09-.43-.13-.61.13-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.13-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.41.12-.54.12-.12.27-.32.41-.48.13-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.13-.61-1.47-.84-2.02-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.26s.97 2.62 1.1 2.8c.13.18 1.9 2.9 4.6 4.06.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.59-.65 1.81-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32zM16 0C7.16 0 0 7.16 0 16c0 2.82.74 5.46 2.02 7.74L0 32l8.46-2.22A15.93 15.93 0 0 0 16 32c8.84 0 16-7.16 16-16S24.84 0 16 0z"/>
+    </svg>
+</a>
+
+<!-- GSAP Animations -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Animate Header Typographic Logo
+    gsap.from(".brand-title", { y: -30, opacity: 0, duration: 1, ease: "power3.out" });
+    gsap.from(".brand-subtitle", { y: -20, opacity: 0, duration: 1, delay: 0.2, ease: "power3.out" });
+
+    // Animate Menu Cards Grid gracefully
+    gsap.from(".menu-card", {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "back.out(1.2)",
+        delay: 0.4
+    });
+});
+</script>
+
+</body>
+</html>

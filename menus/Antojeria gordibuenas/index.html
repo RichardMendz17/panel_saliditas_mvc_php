@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Antojería Gordi Buenas | Gorditas, sopes y tacos</title>
+    <meta name="description" content="Conoce el menú de Antojería Gordi Buenas: gorditas, sopes, quesadillas, huaraches, pambazos, tostadas y tacos.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Antojería Gordi Buenas | Menú de antojitos">
+    <meta property="og:description" content="Gorditas, sopes, quesadillas y tacos con distintas opciones de guisados en Gordi Buenas.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Syne:wght@400;700;800&family=Staatliches&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-orange: #F97316;
+            --bg-black: #111111;
+            --text-dark: #000000;
+            --text-light: #FFFFFF;
+            --font-heading: 'Lilita One', cursive;
+            --font-body: 'Syne', sans-serif;
+            --font-tacos: 'Staatliches', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        /* Contenedor 3D Adaptable */
+        .menu-perspective {
+            perspective: 2500px;
+            width: 100%;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 900px) {
+            .menu-perspective {
+                max-width: 950px; /* Ancho horizontal cómodo para laptop */
+            }
+        }
+
+        .menu-card {
+            position: relative;
+            width: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .menu-card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: relative;
+            width: 100%;
+            backface-visibility: hidden;
+            border-radius: 30px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        .face-front {
+            background-color: var(--bg-orange);
+            transform: rotateY(0deg);
+        }
+
+        .face-back {
+            background-color: var(--bg-black);
+            color: var(--text-light);
+            transform: rotateY(180deg);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* Distribución en Computadora (Horizontal) */
+        @media (min-width: 900px) {
+            .desktop-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+                align-items: start;
+            }
+        }
+
+        .menu-header { text-align: center; grid-column: span 2; }
+        .menu-header h1,
+        .menu-header h2 {
+            font-family: var(--font-heading); 
+            font-size: clamp(2.5rem, 5vw, 3.5rem); 
+            text-transform: uppercase; 
+            line-height: 1.1;
+        }
+        
+        .user-logo { 
+            max-width: 160px; 
+            width: 100%;
+            height: auto;
+            margin: 0.8rem auto; 
+            display: block; 
+        }
+
+        .section { 
+            margin-bottom: 0.5rem; 
+        }
+        .section h2,
+        .section h3 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.3rem, 3vw, 1.6rem);
+            text-transform: uppercase;
+            border-bottom: 3px solid currentColor;
+            display: inline-block;
+            margin-bottom: 0.6rem;
+        }
+
+        .items-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+        }
+        .items-list span {
+            display: inline-block;
+        }
+        .items-list span::after { 
+            content: " • "; 
+            margin-left: 0.3rem; 
+            opacity: 0.5; 
+        }
+        .items-list span:last-child::after { 
+            content: ""; 
+        }
+
+        /* Estilo Tacos Reverso */
+        .face-back h3 { 
+            color: var(--bg-orange); 
+            font-family: var(--font-tacos); 
+            font-size: clamp(1.8rem, 4vw, 2.2rem); 
+        }
+        .face-back .items-list { 
+            font-family: var(--font-tacos); 
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem); 
+        }
+
+        /* Galería de imágenes con links externos */
+        .food-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.6rem;
+            margin: 0.5rem 0;
+            grid-column: span 2;
+        }
+        .gallery-item {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+        .food-gallery .gallery-item.span-two {
+            grid-column: span 2;
+            aspect-ratio: 2 / 1;
+        }
+
+        /* Footer */
+        .card-footer {
+            grid-column: span 2;
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+        .pedidos-title { 
+            font-weight: 900; 
+            font-size: 0.75rem; 
+            letter-spacing: 2px;
+            margin-bottom: 0.3rem;
+        }
+        .phone-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .phone-link {
+            display: inline-block;
+            font-family: var(--font-heading);
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            color: inherit;
+            text-decoration: none;
+            line-height: 1.2;
+        }
+        .flip-btn {
+            background: var(--bg-black);
+            color: white;
+            border: none;
+            width: 100%;
+            max-width: 260px;
+            padding: 0.9rem;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 1.2rem auto 0.5rem;
+            text-transform: uppercase;
+            display: block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .flip-btn:hover {
+            transform: scale(1.03);
+        }
+        .face-back .flip-btn { 
+            background: var(--bg-orange); 
+            color: black; 
+        }
+        .nok-brand {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: inherit;
+            text-decoration: none;
+            opacity: 0.8;
+            letter-spacing: 2px;
+            margin-top: 0.8rem;
+        }
+
+        @media (max-width: 480px) {
+            .card-face {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu-perspective">
+    <div class="menu-card" id="mainCard">
+        
+        <!-- FRENTE DE LA TARJETA -->
+        <div class="card-face face-front">
+            <header class="menu-header">
+                <h1>Gordi Buenas</h1>
+                <img src="logo.webp" alt="Logo Gordi Buenas" class="user-logo">
+            </header>
+
+            <div class="desktop-grid">
+                <div>
+                    <div class="section">
+                        <h2>Gorditas</h2>
+                        <div class="items-list">
+                            <span>Chicharrón</span><span>Carnitas</span><span>Tinga</span>
+                            <span>Papa con chorizo</span><span>Requesón</span><span>Pastor</span>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2>Sopes y Quesadillas</h2>
+                        <div class="items-list">
+                            <span>Bistec con nopales</span><span>Bistec encebollado</span><span>Mollejas</span>
+                            <span>Alambre</span><span>Pollo</span><span>Picadillo</span><span>Salchicha</span>
+                            <span>Chicharrón</span><span>Champiñones</span><span>Huitlacoche</span>
+                            <span>Tinga</span><span>Huevo</span><span>Chorizo</span><span>Queso</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="section">
+                        <h2>Otros</h2>
+                        <div class="items-list">
+                            <span>Huarache</span><span>Chalupas</span><span>Pambazos</span>
+                            <span>Tostadas de pata</span><span>Tostadas de tinga</span><span>Tostadas de pollo</span>
+                            <span>Orden de cebollitas</span><span>Sopes de tripa</span><span>Sope de suadero</span>
+                            <span style="color: #4a0000; font-weight: 900;">Rica pancita (domingos)</span><span>Refrescos</span>
+                        </div>
+                    </div>
+
+                    <div class="food-gallery">
+                        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=400&q=80" class="gallery-item" alt="Antojito">
+                        <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=600&q=80" class="gallery-item span-two" alt="Plato Especial">
+                    </div>
+                </div>
+            </div>
+
+            <footer class="card-footer">
+                <p class="pedidos-title">PEDIDOS AL:</p>
+                <div class="phone-container">
+                    <a href="tel:7711772697" class="phone-link">771 177 2697</a>
+                    <a href="tel:7712143815" class="phone-link">771 214 3815</a>
+                </div>
+                <button class="flip-btn" onclick="toggleMenu()">VER MENÚ DE TACOS 🌮</button>
+                <a href="https://saliditas.com.mx" target="_blank" class="nok-brand">POWERED BY SALIDITAS.COM.MX</a>
+            </footer>
+        </div>
+
+        <!-- REVERSO DE LA TARJETA (TACOS) -->
+        <div class="card-face face-back">
+            <header class="menu-header">
+                <h2 style="color: var(--bg-orange)">TACOS - Gordi Buenas</h2>
+            </header>
+
+            <div class="desktop-grid">
+                <div>
+                    <div class="section">
+                        <h3>Nuestra Variedad</h3>
+                        <div class="items-list">
+                            <span>Suadero</span><span>Bistec</span><span>Enchilada</span>
+                            <span>Longaniza</span><span>Tripa</span><span>Cuero</span><span>Pollo</span>
+                            <span>Orden de cebollitas</span><span>Sopes de tripa</span><span>Sope de suadero</span>
+                            <span>Sopes</span><span>Quesadillas</span><span>Chalupas</span><span>Pambazos</span>
+                            <span>Gorditas</span><span>Pancita solo domingos</span><span>Refrescos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="food-gallery">
+                        <img src="https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=400&q=80" class="gallery-item" alt="Tacos">
+                        <img src="https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&w=400&q=80" class="gallery-item" alt="Tacos Especiales">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" class="gallery-item" alt="Antojito">
+                    </div>
+
+                    <div class="section" style="text-align: center; margin-top: 1rem;">
+                        <p style="font-family: var(--font-tacos); font-size: clamp(1.3rem, 3vw, 1.6rem); color: var(--bg-orange);">¡Tacos bien servidos!</p>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="card-footer">
+                <p class="pedidos-title">PEDIDOS AL:</p>
+                <div class="phone-container">
+                    <a href="tel:7711772697" class="phone-link">771 177 2697</a>
+                    <a href="tel:7712143815" class="phone-link">771 214 3815</a>
+                </div>
+                <button class="flip-btn" onclick="toggleMenu()">VOLVER AL MENÚ ↩</button>
+                <a href="https://saliditas.com.mx" target="_blank" class="nok-brand">POWERED BY SALIDITAS.COM.MX</a>
+            </footer>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function toggleMenu() {
+        const card = document.getElementById('mainCard');
+        card.classList.toggle('is-flipped');
+        
+        // Al girar en dispositivos móviles, sube la vista suavemente para ver el inicio del menú
+        if (window.innerWidth < 900) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    }
+</script>
+</body>
+</html>

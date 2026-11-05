@@ -1,0 +1,17 @@
+# Deshabilitar listado de directorios
+Options -Indexes
+
+# Activar mod_rewrite
+RewriteEngine On
+
+# Forzar HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# Bloquear el acceso directo a archivos sensibles (excepto .php)
+RewriteRule \.(env|json|log|ini|sh|sql|bak|config)$ - [F,L,NC]
+
+# Redirigir todas las solicitudes a index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?PATH_INFO=$1 [L,QSA]

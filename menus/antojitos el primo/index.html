@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antojitos El Primo | Tacos, quesadillas y antojitos</title>
+<meta name="description" content="Consulta el menú de Antojitos El Primo: tacos, quesadillas, sopes, gorditas, huaraches, enchiladas, chilaquiles y desayunos.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Antojitos El Primo | Tacos y comida mexicana">
+<meta property="og:description" content="Tacos, quesadillas, sopes, gorditas y antojitos mexicanos en el menú de Antojitos El Primo.">
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<!-- FontAwesome para iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root{
+    --negro:#0b0b0b;
+    --rojo:#d32f2f;
+    --verde:#2e7d32;
+    --crema:#f5e6c8;
+    --card-bg:#141414;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:var(--negro);
+    color:var(--crema);
+    font-family:'Montserrat', sans-serif;
+    padding-bottom: 50px;
+}
+
+.menu-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* LOGO */
+.header{
+    text-align:center;
+    padding:20px 15px;
+}
+
+.header img{
+    width:160px;
+    height:auto;
+}
+
+/* LAYOUT HORIZONTAL PARA LAPTOP / GRID */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+}
+
+@media(min-width: 768px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(min-width: 1024px) {
+    .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* SECCIONES EN TARJETAS */
+.section{
+    background: var(--card-bg);
+    border: 1px solid rgba(211, 47, 47, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+/* TITULOS */
+.section h2{
+    font-family:'Bebas Neue', sans-serif;
+    color:var(--rojo);
+    font-size:26px;
+    letter-spacing:1px;
+    margin-bottom:12px;
+    border-bottom: 2px solid var(--rojo);
+    padding-bottom: 5px;
+}
+
+/* LISTA LIMPIA */
+ul{
+    list-style:none;
+}
+
+li{
+    padding:6px 0;
+    font-size:14px;
+    border-bottom: 1px dotted rgba(245, 230, 200, 0.1);
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+/* MOSAICO PRO DE IMÁGENES */
+.galeria-section {
+    grid-column: 1 / -1;
+    background: transparent;
+    border: none;
+    padding: 10px 0;
+    box-shadow: none;
+}
+
+.galeria{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+@media(min-width: 768px) {
+    .galeria {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+.galeria img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-radius:10px;
+    border: 1px solid rgba(245, 230, 200, 0.2);
+    transition: transform 0.3s;
+}
+
+.galeria img:hover {
+    transform: scale(1.03);
+}
+
+/* MAPA */
+.map-section {
+    grid-column: 1 / -1;
+    background: var(--card-bg);
+    border: 1px solid rgba(46, 125, 50, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.map-container {
+    width: 100%;
+    height: 320px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* BOTON FLOTANTE DE WHATSAPP */
+.whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #25d366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: #20ba5a;
+}
+
+/* FOOTER */
+.footer{
+    text-align:center;
+    font-size:13px;
+    padding:30px 15px;
+    color:#aaa;
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 20px;
+}
+
+.footer a{
+    color:var(--verde);
+    text-decoration:none;
+    font-weight: 600;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="menu-container">
+
+    <!-- LOGO -->
+    <div class="header">
+    <img src="logo.png" alt="Logotipo de Antojitos El Primo">
+    <h1 style="margin: 0.5rem 0; color: var(--crema); font-size: 1.8rem;">Antojitos El Primo</h1>
+</div>
+
+    <div class="menu-grid">
+
+        <!-- TACOS -->
+        <div class="section">
+            <h2>TACOS</h2>
+            <ul>
+                <li>Milanesa</li>
+                <li>Chile relleno</li>
+                <li>Rollito de jamón</li>
+                <li>Huevo en pasilla</li>
+                <li>Papa con chorizo</li>
+                <li>Hígado</li>
+                <li>Pastor</li>
+                <li>Manita de cerdo</li>
+                <li>Torta de pollo</li>
+                <li>Mole verde</li>
+                <li>Alambre</li>
+            </ul>
+        </div>
+
+        <!-- ANTOJITOS -->
+        <div class="section">
+            <h2>ANTOJITOS</h2>
+            <ul>
+                <li>Bistec con nopales</li>
+                <li>Chicharrón prensado</li>
+                <li>Tierritas</li>
+                <li>Tinga</li>
+                <li>Molleja</li>
+                <li>Champiñón</li>
+                <li>Salchicha</li>
+                <li>Mole verde</li>
+                <li>Gorditas</li>
+                <li>Sopes</li>
+                <li>Huaraches</li>
+                <li>Enchiladas</li>
+                <li>Chilaquiles</li>
+                <li>Tacos dorados</li>
+            </ul>
+        </div>
+
+        <!-- QUESADILLAS -->
+        <div class="section">
+            <h2>QUESADILLAS</h2>
+            <ul>
+                <li>Pastor</li>
+                <li>Flor de calabaza</li>
+                <li>Huitlacoche</li>
+                <li>Picadillo</li>
+                <li>Alambre</li>
+                <li>Milanesa</li>
+                <li>Deshebrada de res</li>
+                <li>Chorizo</li>
+                <li>Requesón</li>
+                <li>Papa con chorizo</li>
+                <li>Extra queso</li>
+            </ul>
+        </div>
+
+        <!-- DESAYUNOS -->
+        <div class="section">
+            <h2>DESAYUNOS</h2>
+            <ul>
+                <li>Frutas</li>
+                <li>Licuados</li>
+            </ul>
+        </div>
+
+        <!-- MOSAICO IMAGENES -->
+        <div class="galeria-section">
+            <div class="galeria">
+                <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=80" alt="Taco Alambre">
+                <img src="https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&w=500&q=80" alt="Tacos Dorados">
+                <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=500&q=80" alt="Quesadillas">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" alt="Papa con chorizo">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=80" alt="Huarache">
+            </div>
+        </div>
+
+        <!-- MAPA -->
+        <div class="map-section">
+            <h2>Nuestra Ubicación</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3746.133882285916!2d-98.7299785!3d20.128461399999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1091c3f226559%3A0xc9117d6da3300bc3!2sPachuca%2C%20Hgo.!5e0!3m2!1ses-419!2smx!4v1792525677206!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            Powered by <a href="https://saliditas.com.mx" target="_blank">saliditas.com.mx</a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- BOTÓN FLOTANTE DE WHATSAPP -->
+<a href="https://wa.me/5217711354662?text=Hola%20quiero%20taquiza" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+</body>
+</html>

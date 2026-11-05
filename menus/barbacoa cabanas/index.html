@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbacoa Cabañas | Barbacoa y antojitos en Pachuca</title>
+<meta name="description" content="Consulta el menú de Barbacoa Cabañas en Pachuca: barbacoa de res y borrego, consomé, sopes, quesadillas y bebidas.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Barbacoa Cabañas | Menú en Pachuca">
+<meta property="og:description" content="Barbacoa de res y borrego, consomé, antojitos mexicanos y bebidas en Pachuca.">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<!-- FontAwesome para iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --bg-dark: #1e110b;
+    --card-bg: rgba(255, 251, 245, 0.96);
+    --primary: #b7410e;
+    --primary-hover: #93330a;
+    --accent: #d97736;
+    --text-main: #2c1a12;
+    --text-muted: #6e5244;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    background-image: radial-gradient(circle at 50% 10%, #3a1e13 0%, #1e110b 80%);
+    background-attachment: fixed;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 900px;
+    background: var(--card-bg);
+    border-radius: 32px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    overflow: hidden;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+/* HEADER Y LOGO */
+.hero-header {
+    text-align: center;
+    padding: 40px 20px 20px 20px;
+    background: linear-gradient(180deg, #fff5ea 0%, rgba(255,251,245,0) 100%);
+}
+
+.logo {
+    max-width: 220px;
+    height: auto;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+.horario-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 2px solid var(--accent);
+    color: var(--primary);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(217,119,54,0.15);
+}
+
+/* BANNERS */
+.banners-wrapper {
+    padding: 0 30px;
+    margin-bottom: 25px;
+}
+
+.promo-banner {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    padding: 16px;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 12px;
+    box-shadow: 0 6px 15px rgba(183, 65, 14, 0.2);
+    font-size: 1.05rem;
+}
+
+.special-banner {
+    background-color: #fdecd0;
+    color: #8c3812;
+    padding: 12px;
+    border-radius: 16px;
+    text-align: center;
+    font-weight: 800;
+    border: 1px dashed var(--accent);
+    font-size: 0.95rem;
+}
+
+/* SECCIONES DEL MENÚ */
+.menu-content {
+    padding: 0 30px;
+}
+
+.category-group {
+    margin-bottom: 30px;
+}
+
+.category-title {
+    font-family: 'Fredoka', sans-serif;
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid #f2e2cb;
+    padding-bottom: 8px;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+@media(min-width: 768px) {
+    .items-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+}
+
+.menu-item {
+    background: #fffdf9;
+    padding: 15px 18px;
+    border-radius: 18px;
+    border: 1px solid #f2e2cb;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.menu-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+}
+
+.item-name {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.item-price {
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--primary);
+}
+
+.item-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* GALERÍA DE PLATILLOS */
+.gallery-section {
+    padding: 0 30px;
+    margin-bottom: 35px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+@media(min-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.gallery-item {
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover {
+    transform: scale(1.03);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* MAPA Y UBICACIÓN */
+.location-section {
+    padding: 0 30px;
+    margin-bottom: 35px;
+}
+
+.map-card {
+    background: #fffdf9;
+    padding: 20px;
+    border-radius: 24px;
+    border: 1px solid #f2e2cb;
+    text-align: center;
+}
+
+.map-container {
+    width: 100%;
+    height: 250px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border: 2px solid #f2e2cb;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.address {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: #fef5ea;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+/* FOOTER Y CREDITO SALIDITAS */
+footer {
+    text-align: center;
+    padding: 25px 30px;
+    background: #f7ede2;
+    border-top: 1px solid #f2e2cb;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.social-icons a {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.social-icons a:hover {
+    transform: scale(1.1);
+}
+
+.powered-by {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.powered-by span {
+    color: var(--primary);
+    font-weight: 800;
+}
+
+/* BOTÓN FLOTANTE DE WHATSAPP */
+.whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #25D366;
+    color: white;
+    width: 65px;
+    height: 65px;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 32px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: #20ba5a;
+}
+</style>
+</head>
+<body>
+
+<div class="main-container">
+
+    <!-- CABECERA -->
+    <header class="hero-header">
+        <img src="logoo.png" alt="Logotipo Barbacoa" class="logo">
+        <h1 style="margin: 0.5rem 0; color: var(--text-main); font-size: 1.7rem;">Barbacoa Cabañas</h1>
+        <div class="horario-badge">
+            <i class="fa-regular fa-clock"></i> Lunes a Viernes &nbsp;|&nbsp; 8:00 a.m. - 4:30 p.m.
+        </div>
+    </header>
+
+    <!-- BANNERS -->
+    <div class="banners-wrapper">
+        <div class="promo-banner">
+            🔥 ¡Promo Especial! 🔥<br>En la compra de 300g de barbacoa, llévate 6 sopes de regalo
+        </div>
+        <div class="special-banner">
+            🌮 Entre semana vendemos deliciosas Enchiladas y Chilaquiles 🌯
+        </div>
+    </div>
+
+    <!-- CONTENIDO DEL MENÚ FLUIDO -->
+    <div class="menu-content">
+
+        <!-- BARBACOA -->
+        <div class="category-group">
+            <h2 class="category-title"><i class="fa-solid fa-utensils"></i> Barbacoa de Res / Borrego</h2>
+            <div class="items-grid">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">1/4 de Kilo</span>
+                        <span class="item-price">$140</span>
+                    </div>
+                    <div class="item-desc">Acompañada con salsa, limones y tortillas recién hechas.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">1/2 Kilo</span>
+                        <span class="item-price">$270</span>
+                    </div>
+                    <div class="item-desc">Ideal para compartir en familia.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Kilo Completo</span>
+                        <span class="item-price">$520</span>
+                    </div>
+                    <div class="item-desc">Incluye consomé grande y porción extra de tortillas.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANTOJITOS -->
+        <div class="category-group">
+            <h2 class="category-title"><i class="fa-solid fa-fire"></i> Antojitos Mexicanos</h2>
+            <div class="items-grid">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Sopes Sencillos (Ord. 4 pzas)</span>
+                        <span class="item-price">$65</span>
+                    </div>
+                    <div class="item-desc">Con frijol, queso, crema y salsa al gusto.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Quesadillas con Guisado</span>
+                        <span class="item-price">$35</span>
+                    </div>
+                    <div class="item-desc">Chicharrón, tinga, papa con chorizo o requesón.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONSOMÉ Y SOPAS -->
+        <div class="category-group">
+            <h2 class="category-title"><i class="fa-solid fa-bowl-food"></i> Consomé & Sopas</h2>
+            <div class="items-grid">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Plato de Consomé</span>
+                        <span class="item-price">$45</span>
+                    </div>
+                    <div class="item-desc">Caldo tradicional de barbacoa con garbanzo y arroz.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Chilaquiles Verdes o Rojos</span>
+                        <span class="item-price">$75</span>
+                    </div>
+                    <div class="item-desc">Con pollo deshebrado, crema, queso fresco y cebolla.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BEBIDAS -->
+        <div class="category-group">
+            <h2 class="category-title"><i class="fa-solid fa-cup-water"></i> Bebidas</h2>
+            <div class="items-grid">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Agua Fresca del Día (1 Litro)</span>
+                        <span class="item-price">$35</span>
+                    </div>
+                    <div class="item-desc">Horchata, jamaica o limón con chía.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Refrescos de Sabor / Cola</span>
+                        <span class="item-price">$25</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- GALERÍA DE PLATILLOS -->
+    <div class="gallery-section">
+        <h2 class="category-title" style="font-size: 1.3rem; margin-bottom: 12px;"><i class="fa-solid fa-camera"></i> Nuestros Platillos</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="b.webp" alt="Barbacoa" onerror="this.src='https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=400&q=80';">
+            </div>
+            <div class="gallery-item">
+                <img src="c.webp" alt="Sopes" onerror="this.src='https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=400&q=80';">
+            </div>
+            <div class="gallery-item">
+                <img src="f.webp" alt="Tacos" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80';">
+            </div>
+            <div class="gallery-item">
+                <img src="s.webp" alt="Consomé" onerror="this.src='https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=400&q=80';">
+            </div>
+        </div>
+    </div>
+
+    <!-- UBICACIÓN Y MAPA -->
+    <div class="location-section">
+        <div class="map-card">
+            <h2 class="category-title" style="justify-content: center; font-size: 1.3rem;"><i class="fa-solid fa-location-dot"></i> Visítanos</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3746.133882285916!2d-98.7299785!3d20.128461399999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1091c3f226559%3A0xc9117d6da3300bc3!2sPachuca%2C%20Hgo.!5e0!3m2!1ses-419!2smx!4v1792525677206!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+            <div class="address">
+                📍 Calle Guerrero Col. Centro, interior del Mercado de Barreteros, Local 35, Pachuca, Hgo.
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.facebook.com" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <a href="https://saliditas.com.mx" class="powered-by" target="_blank">Powered by <span>saliditas.com.mx</span></a>
+    </footer>
+
+</div>
+
+<!-- BOTÓN FLOTANTE DE WHATSAPP -->
+<a href="https://wa.me/5217713932056?text=Hola,%20quisiera%20solicitar%20información%20del%20menú%20o%20hacer%20un%20pedido" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+</body>
+</html>

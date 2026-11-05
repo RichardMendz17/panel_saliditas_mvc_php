@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Don Toño Barbacoa | Quesadillas, sopes y antojitos</title>
+    <meta name="description" content="Consulta el menú de Don Toño Barbacoa en el Mercado Primero de Mayo, Pachuca: quesadillas, sopes, tlacoyos, flautas y antojitos.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Don Toño Barbacoa | Menú">
+    <meta property="og:description" content="Barbacoa, quesadillas, sopes, tlacoyos y antojitos en Pachuca. Consulta el menú y horario.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@700;900&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --oro-barbacoa: #c6a664;
+            --rojo-salsa: #922b21;
+            --negro-carbon: #1a1a1a;
+            --crema-pergamino: #faf7f2;
+            --blanco: #ffffff;
+        }
+
+        /* Corrección definitiva para evitar desplazamiento horizontal en cualquier pantalla */
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: var(--blanco);
+        }
+
+        /* --- HEADER --- */
+        .hero {
+            height: 60vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            border-bottom: 4px solid var(--oro-barbacoa);
+            padding: 0 15px;
+        }
+
+        .main-logo {
+            max-width: 100%;
+            width: 300px;
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(198, 166, 100, 0.5));
+            margin-bottom: 20px;
+            opacity: 0;
+        }
+
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2rem, 7vw, 4rem);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--oro-barbacoa);
+            opacity: 0;
+        }
+
+        /* --- CONTENEDOR --- */
+        .menu-container {
+            width: 100%;
+            max-width: 900px;
+            margin: -50px auto 0;
+            padding: 0 15px 100px;
+            position: relative;
+            z-index: 10;
+        }
+
+        section {
+            background: var(--crema-pergamino);
+            color: var(--negro-carbon);
+            margin-bottom: 40px;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            opacity: 0;
+            transform: translateY(50px);
+            width: 100%;
+        }
+
+        .section-content { flex: 1; min-width: 0; }
+
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            color: var(--rojo-salsa);
+            border-left: 5px solid var(--oro-barbacoa);
+            padding-left: 15px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .side-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 3px solid var(--oro-barbacoa);
+            flex-shrink: 0;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .menu-item {
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 5px 0;
+            word-break: break-word;
+        }
+
+        .description {
+            font-size: 0.85rem;
+            color: #555;
+            margin: 10px 0;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .extras {
+            background: #e9e4d9;
+            padding: 12px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            color: var(--rojo-salsa);
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .price-badge {
+            background: var(--rojo-salsa);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* --- MAPA --- */
+        .map-wrapper {
+            width: 100%;
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 15px;
+            border: 2px solid var(--oro-barbacoa);
+        }
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #000;
+            padding: 60px 15px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-align: left;
+        }
+        
+        .footer-item h4 {
+            color: var(--oro-barbacoa);
+            margin-bottom: 10px;
+            font-family: 'Crimson Pro', serif;
+        }
+        
+        .footer-item p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .saliditas-link {
+            color: #888;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .saliditas-glow { color: #fff !important; text-shadow: 0 0 15px var(--oro-barbacoa); }
+
+        @media (max-width: 768px) {
+            section { flex-direction: column; padding: 25px 15px; text-align: center; }
+            .side-img { width: 100%; height: 180px; order: -1; }
+            .section-title { border-left: none; border-bottom: 3px solid var(--oro-barbacoa); padding-bottom: 10px; }
+            .footer-grid { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <img src="logo.png" alt="Don Toño" class="main-logo" id="logo">
+        <h1 id="title">Don Toño Barbacoa</h1>
+    </header>
+
+    <div class="menu-container">
+        
+        <section class="reveal">
+            <div class="section-content">
+                <h2 class="section-title">Antojitos</h2>
+                <div class="menu-item">Mole de Panza</div>
+                <div class="menu-item">Chilaquiles</div>
+                <div class="menu-item">Enchiladas (Orden de 4)</div>
+                <div class="menu-item">Tlacoyos Ahogados (Orden de 3)</div>
+                <p class="description">Se sirven con: crema, queso, cebolla, cilantro y lechuga.</p>
+                <div class="extras">
+                    Acompáñalos con: Pollo, Huevo, Bistec, Costilla o Arrachera
+                </div>
+            </div>
+            <img src="mole-de-panza-nok.jfif" class="side-img" alt="Antojitos">
+        </section>
+
+        <section class="reveal" style="border: 2px solid var(--oro-barbacoa)">
+            <div class="section-content">
+                <h2 class="section-title">Quecas Conchita</h2>
+                <p style="font-weight: bold; color: var(--rojo-salsa);">Más de 30 años de sazón y el mejor servicio.</p>
+                <p class="description" style="font-size: 1rem; font-style: normal; margin-top: 10px;">Quesadillas con Queso:</p>
+                <div class="menu-grid">
+                    <div class="menu-item">Picadillo</div><div class="menu-item">Sesos</div>
+                    <div class="menu-item">Huitlacoche</div><div class="menu-item">Tripa</div>
+                    <div class="menu-item">Chicharrón P.</div><div class="menu-item">Flor de Calabaza</div>
+                    <div class="menu-item">Champiñones</div><div class="menu-item">Pollo</div>
+                    <div class="menu-item">Chorizo</div><div class="menu-item">Papa c/ Chorizo</div>
+                    <div class="menu-item">Rajas</div><div class="menu-item">Papa c/ Jamón</div>
+                    <div class="menu-item">Alambre</div><div class="menu-item">Médula</div>
+                    <div class="menu-item">Nopales</div><div class="menu-item">Salchicha</div>
+                    <div class="menu-item">Mollejas Mex.</div><div class="menu-item">Pastor</div>
+                    <div class="menu-item">Bistec</div><div class="menu-item">Tinga</div>
+                    <div class="menu-item">Mole Verde/Rojo</div><div class="menu-item">Queso</div>
+                </div>
+                <div class="extras">Ingrediente extra: $ ___</div>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <img src="nok-sopes.webp" class="side-img" alt="Sopes">
+            <div class="section-content">
+                <h2 class="section-title">Sopes y Gorda Flaka</h2>
+                <p style="font-weight: 700; color: var(--rojo-salsa);">SOPES TRADICIONALES</p>
+                <p class="description">Panza, Tinga, Mole, Pollo, Picadillo, Tripa, Nopales, Huevo, Chorizo o Bistec.</p>
+                <p style="font-size: 0.8rem; margin-bottom: 15px;">Acompañados con: Frijol, cebolla, cilantro y queso.</p>
+                
+                <hr style="opacity: 0.2; margin: 10px 0;">
+                
+                <p style="font-weight: 700; color: var(--rojo-salsa);">GORDA FLAKA</p>
+                <p class="description">Tierritas, Chicharrón, Pollo o Requesón.</p>
+                <p style="font-size: 0.8rem;">Acompañados con: Crema, queso y lechuga.</p>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <div class="section-content">
+                <h2 class="section-title">Especialidades</h2>
+                <div class="menu-item">Tulancingueñas (3)</div>
+                <p class="description">Tortilla de maíz, jamón, queso Oaxaca y amarillo. Con crema, queso y lechuga.</p>
+                
+                <div class="menu-item">Tacos Dorados (5)</div>
+                <p class="description">Papa, Queso, Pollo, Picadillo, Tinga o Frijol.</p>
+
+                <div class="menu-item">Flautas (3)</div>
+                <p class="description">Papa, Queso, Barbacoa, Pollo, Picadillo, Tinga o Frijol.</p>
+            </div>
+            <img src="nok-flautas.webp" class="side-img" alt="Especialidades">
+        </section>
+
+        <section class="reveal">
+            <img src="nok-tostadas.webp" class="side-img" alt="Tostadas">
+            <div class="section-content">
+                <h2 class="section-title">Clásicos</h2>
+                <div class="menu-item">Tostadas</div>
+                <p class="description">Pollo, Tinga, Jamón o Pata. Incluye frijoles, lechuga, crema y queso.</p>
+                
+                <div class="menu-item">Pambazos</div>
+                <p class="description">Pollo, Chorizo o Huevo hervido.</p>
+
+                <div class="menu-item">Chalupas</div>
+                <div class="price-badge">5 por $20</div>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <div class="section-content">
+                <h2 class="section-title">Tlacoyos</h2>
+                <p class="description" style="font-style: normal; font-weight: 700;">Rellenos de:</p>
+                <div class="menu-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="menu-item">Requesón</div><div class="menu-item">Frijol</div>
+                    <div class="menu-item">Alberjón</div><div class="menu-item">Papa</div>
+                </div>
+                <p class="description">Acompañados con: Queso o nopales.</p>
+            </div>
+            <img src="nok-tlacoyos.webp" class="side-img" alt="Tlacoyos">
+        </section>
+
+        <section class="reveal">
+            <div class="section-content">
+                <h2 class="section-title">Bebidas</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">☕ Café de Olla</div>
+                    <div class="menu-item">🥤 Refresco</div>
+                    <div class="menu-item">🍶 Agua del día</div>
+                    <div class="menu-item">🍺 Cerveza</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-item">
+                <h4>UBICACIÓN</h4>
+                <p>Mercado Primero de Mayo<br>Local 20. Pachuca, Hgo.</p>
+                <div class="map-wrapper">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3746.133882285916!2d-98.7299785!3d20.128461399999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1091c3f226559%3A0xc9117d6da3300bc3!2sMercado%20Primero%20de%20Mayo%2C%20Centro%2C%2042000%20Pachuca%20de%20Soto%2C%20Hgo.!5e0!3m2!1ses-419!2smx!4v1792525677206!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+            </div>
+            <div class="footer-item">
+                <h4>HORARIO</h4>
+                <p>Lunes a Domingo<br>8:00 AM - 6:00 PM</p>
+                <h4 style="margin-top: 20px;">CONTACTO</h4>
+                <p>Servicio directo en local y para llevar.</p>
+            </div>
+        </div>
+        <div style="margin-top: 30px; border-top: 1px solid #222; padding-top: 20px;">
+            <a id="saliditas" href="https://saliditas.com.mx" target="_blank" class="saliditas-link">POWERED BY SALIDITAS</a>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const tl = gsap.timeline();
+        tl.to("#logo", { opacity: 1, scale: 1.1, duration: 1, ease: "back.out(1.7)" })
+          .to("#title", { opacity: 1, y: -10, duration: 0.8 }, "-=0.5");
+
+        gsap.utils.toArray(".reveal").forEach((section, i) => {
+            gsap.to(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+
+        const saliditas = document.getElementById('saliditas');
+        ['mousedown', 'touchstart'].forEach(e => saliditas.addEventListener(e, () => saliditas.classList.add('saliditas-glow')));
+        ['mouseup', 'touchend'].forEach(e => saliditas.addEventListener(e, () => setTimeout(() => saliditas.classList.remove('saliditas-glow'), 500)));
+    </script>
+</body>
+</html>

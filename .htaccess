@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# Redirigir todo el tráfico a la carpeta "public/"
+RewriteRule ^(.*)$ public/$1 [L]
+
+# Proteger archivos sensibles como .env
+RewriteRule \.env$ - [F,L]
+
+# Bloquear acceso directo a la carpeta "config"
+RewriteRule ^config/ - [F,L]
+
+# Bloquear acceso directo a archivos de configuración, logs y otros archivos sensibles
+RewriteRule \.(env|json|log|ini|sh|sql|bak|config)$ - [F,L,NC]
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php82” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
