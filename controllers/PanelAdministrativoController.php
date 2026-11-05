@@ -6,6 +6,7 @@ namespace Controllers;
 
 
 
+use Model\Producto;
 use MVC\Router;
 
 
@@ -53,7 +54,6 @@ class PanelAdministrativoController
             // Navegacion
 
             //'total_cocina_pendientes' => $total_cocina_pendientes,
-            
 
         ]);
     }

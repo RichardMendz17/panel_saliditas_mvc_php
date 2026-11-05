@@ -18,13 +18,7 @@ class Router
 
         '/', 
 
-        '/api/obtener_productos',
-
-        '/api/obtener_categorias',
-
-        '/api/guardar_producto',
-
-        '/api/eliminar_producto'
+        '/productos',
 
         ],
 
@@ -33,15 +27,8 @@ class Router
         'POST' => [
 
         '/', 
-
-        '/api/obtener_productos',
-
-        '/api/obtener_categorias', 
-
-        '/api/guardar_producto',
-
-        '/api/eliminar_producto',
-
+        
+        '/productos',
         ]
 
     ];

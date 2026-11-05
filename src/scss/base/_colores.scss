@@ -1,0 +1,5 @@
+@use 'variables' as v;
+.txt-white
+{
+    color: v.$blanco !important;
+}

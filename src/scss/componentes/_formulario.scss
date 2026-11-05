@@ -1,0 +1,161 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.formulario 
+{
+    margin-top: 2rem;
+
+    .campo 
+    {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        label 
+        {
+            flex: 0 0 10rem;
+        }
+        input 
+        {
+            flex:  1;
+            padding: 1rem;
+            border: none;
+            background-color: lighten(v.$gris, 40%);
+        }
+        textarea
+        {
+            flex: 0 0 100%;
+            border-radius: 1rem;
+            font-size: 2rem;
+        }
+    }
+
+
+    .campo-dia
+    {
+        input:disabled 
+        {
+        background-color: v.$negro;
+        color: #999;
+        border: 1px solid #ccc;
+        }
+        input
+        {
+            border: 1px solid v.$negro;
+        }
+    }
+
+    .campo-checkbox
+    {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+    }
+
+}
+
+.campo
+{
+    gap: 1rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 2rem auto;
+    align-items: center;
+    position: relative;
+    label 
+    {
+        flex:0 0 20rem  ;
+    }
+    input 
+    {
+        border: none;
+        padding: calc(v.$separacion / 5);
+        border-radius: 1rem;
+        width: 50rem;
+    }
+   select 
+   {
+        width: 50rem;
+        text-align: center;
+        text-align-last: center;
+    }
+}
+
+.checkbox-list
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+
+    .campo-check
+    {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 15rem;
+        margin-top: .40rem;
+    }
+}
+
+.campo-condicional
+{
+    .campo-condicional__check, .campo-condicional__input
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+        label
+        {
+            justify-content: center;
+        }
+        input 
+        {
+            flex:  1;
+            padding: 1rem;
+            border: none;
+            background-color: lighten(v.$gris, 40%);
+            border-radius: 1rem;
+        }
+    }
+    @include m.tablet
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .campo-condicional__check, .campo-condicional__input
+        {
+            flex-direction: row;
+            label
+            {
+                flex:0 0 20rem  ;
+            }
+        }
+    }
+}
+
+
+.registros thead {
+    background-color: #f9f9f9;
+}
+
+.resultados-tabla {
+    max-height: 28rem;
+    overflow-y: auto;
+
+}
+.comprobante {
+    color: white;
+    &:hover {
+        background-color: darken( v.$azul, 10% );
+        cursor: pointer;
+    }
+ }
+
+ .disabled_input
+ {
+    background-color: v.$negro;
+ }

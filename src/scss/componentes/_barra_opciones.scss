@@ -1,0 +1,169 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+// ============================================
+// BARRA DE OPCIONES - TODO ANIDADO
+// ============================================
+.barra--opciones 
+{
+
+    // ----- ESTILOS BASE (SIEMPRE PRIMERO) -----
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    padding: 1.6rem;
+    align-items: center;
+    border-radius: 0.8rem;
+    transition: all 0.3s;
+
+    // ============================================
+    // RESPONSIVE - TELÉFONO
+    // ============================================
+    @include m.telefono 
+    {
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 1.2rem;
+        justify-content: center;
+        align-items: center;
+
+        .barra-opciones__botones
+        {
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .barra-opciones__paginacion 
+        {
+            padding: 2rem 0;
+        }
+
+    }
+
+    // ============================================
+    // RESPONSIVE - TABLET
+    // ============================================
+
+    @include m.tablet 
+    {
+        flex-direction: row;
+        gap: 1.6rem;
+        padding: 1.6rem 2.4rem;
+
+        // CASO 1 en tablet: Solo botones
+        &:has(.barra-opciones__botones):not(:has(.barra-opciones__periodos)):not(:has(.barra-opciones__paginacion)) 
+        {
+            .barra-opciones__botones
+            {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+                gap: 1rem;
+                max-width: 30rem; // Limita el ancho máximo
+            }
+        }
+
+        // CASO 2 en tablet: Botones + Periodos
+        &:has(.barra-opciones__botones):has(.barra-opciones__periodos):not(:has(.barra-opciones__paginacion)) 
+        {
+            flex-direction: column;
+            .barra-opciones__botones
+            {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+                gap: 1rem;
+                max-width: 30rem; // Limita el ancho máximo
+            }
+        }
+
+        // CASO 3 en tablet: Botones + Paginación
+        &:has(.barra-opciones__botones):has(.barra-opciones__paginacion):not(:has(.barra-opciones__periodos)) 
+        {
+            flex-direction: column;
+            .barra-opciones__botones
+            {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+                gap: 1rem;
+                max-width: 30rem; // Limita el ancho máximo
+            }
+        }
+
+        // CASO 4 en tablet: Periodos + Paginación
+        &:has(.barra-opciones__periodos):has(.barra-opciones__paginacion):not(:has(.barra-opciones__botones))
+        {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        // CASO 5 en tablet tiene todo
+        &:has(.barra-opciones__botones):has(.barra-opciones__periodos):has(.barra-opciones__paginacion) 
+        {
+            flex-direction: column;
+            .barra-opciones__botones
+            {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+                gap: 1rem;
+                max-width: 30rem; // Limita el ancho máximo
+            }
+        }
+    }
+
+    // ============================================
+    // RESPONSIVE - DESKTOP
+    // ============================================
+    @include m.desktop 
+    {
+        flex-direction: row;
+        gap: 2.4rem;
+        padding: 2rem 3.2rem;
+
+        // CASO 1 en desktop tiene todo
+        &:has(.barra-opciones__botones):has(.barra-opciones__periodos):has(.barra-opciones__paginacion) 
+        {
+            flex-direction: row;
+            justify-content: space-between;
+
+            .barra-opciones__botones
+            {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+                gap: 1rem;
+                max-width: 60rem; // Limita el ancho máximo
+
+            }
+
+        }
+
+        // CASO 2 en desktop: Botones + Periodo
+        &:has(.barra-opciones__botones):has(.barra-opciones__periodos):not(:has(.barra-opciones__paginacion)) 
+        {
+            flex-direction: row;
+            justify-content: space-between;
+
+            .barra-opciones__botones
+            {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+                gap: 1rem;
+                max-width: 60rem; // Limita el ancho máximo
+            }
+        }
+
+        // CASO 3 en tablet: Botones + Paginación
+        &:has(.barra-opciones__botones):has(.barra-opciones__paginacion):not(:has(.barra-opciones__periodos)) 
+        {
+            flex-direction: row;
+            justify-content: space-between;
+
+            .barra-opciones__botones
+            {
+                display: flex;
+                flex-direction: row;
+                max-width: none;
+            }
+        }
+
+    }
+}

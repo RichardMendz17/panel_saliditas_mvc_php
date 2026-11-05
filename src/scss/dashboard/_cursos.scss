@@ -1,0 +1,107 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.no-cursos
+{
+    a
+    {
+        color: v.$rojo;
+    }
+}
+
+.listado-cursos
+{
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 5rem;
+
+    @include m.grid(1, 2rem);
+
+    @include m.tablet 
+    {
+      @include m.grid(2, 2rem);
+    }
+
+    @include m.desktop 
+    {
+      @include m.grid(3, 2rem);
+    }
+
+    .curso
+    {
+        background-color: darken(v.$rojo-oscuro, 1%);
+        padding: 2rem;
+        line-height: 2;
+        border-radius: .5rem;
+        border: none;
+        border: 0.4rem v.$negro;
+        &:hover
+        {
+            background-color: darken(v.$gris, 0.23%);
+        }
+        p
+        {
+            color: v.$blanco;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+
+}
+
+.estados_inscripcion
+{
+    .guia 
+    {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 0; // quitar padding por defecto de <ul>
+        margin: 0;  // quitar margin por defecto de <ul>
+        list-style: none; // quitar los puntos de la lista
+        p
+        {
+            margin: 0;
+        }
+        li 
+        {
+            // Mismos estilos que tenías en p
+            padding: 1rem;
+            border-radius: 2rem;
+            color: v.$blanco;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+    .inscrito 
+    {
+        background-color: v.$turquesa;
+        color: v.$blanco;
+    }
+    .aprobado 
+    {
+        background-color: v.$verde;
+        color: v.$blanco;
+    }
+    .reprobado 
+    {
+        background-color: v.$naranja;
+        color: v.$blanco;
+    }
+    .retirado 
+    {
+        background-color: v.$negro;
+        color: v.$blanco;
+    }
+    .no_inscrito
+    {
+        background-color: v.$rojo-oscuro;
+        color: v.$blanco;
+    }
+
+}
+  

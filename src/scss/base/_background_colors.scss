@@ -1,0 +1,11 @@
+@use 'variables' as v;
+
+.bg-gray-400
+{
+    background-color: v.$gris;
+}
+
+.bg-gray-800
+{
+    background-color: v.$grisOscuro;
+}

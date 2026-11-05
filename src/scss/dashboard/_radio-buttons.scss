@@ -1,0 +1,108 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+
+/* Grupo de radio buttons */
+.estados-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 4px 0;
+}
+
+#opciones_para_referencia_que_requiere_correccion_div
+{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sobrescritura para los labels con clase radio-option */
+.campo label.radio-option,
+.campo label.campo-label,
+.formulario .campo label.radio-option {
+    flex: 1;  /* o simplemente flex: none; */
+
+}
+/* Ocultar el radio nativo */
+.radio-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Estilo de cada opción como badge clickeable */
+.radio-option .badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid #e0e0e0;
+    background: #f8f9fa;
+    color: #555;
+    user-select: none;
+}
+/* Hover */
+.radio-option:hover .badge {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Estado seleccionado */
+.radio-option input[type="radio"]:checked + .badge {
+    border-color: #0d6efd;
+    background: #e7f1ff;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+    transform: scale(1.02);
+}
+
+/* Colores específicos por estado cuando están seleccionados */
+.radio-option.radio-verde input[type="radio"]:checked + .badge {
+    border-color: #198754;
+    background: #d1e7dd;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    color: #0a3622;
+}
+
+.radio-option.radio-amarillo input[type="radio"]:checked + .badge {
+    border-color: #ffc107;
+    background: #fff3cd;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+    color: #664d03;
+}
+
+.radio-option.radio-rojo input[type="radio"]:checked + .badge {
+    border-color: #dc3545;
+    background: #f8d7da;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+    color: #58151c;
+}
+
+.radio-option.radio-naranja input[type="radio"]:checked + .badge {
+    border-color: #fd7e14;
+    background: #ffe5d0;
+    box-shadow: 0 0 0 3px rgba(253, 126, 20, 0.2);
+    color: #7a4a0e;
+}
+
+/* Estado deshabilitado (si aplica) */
+.radio-option input[type="radio"]:disabled + .badge {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Animación al seleccionar */
+.radio-option input[type="radio"]:checked + .badge {
+    animation: seleccionar 0.2s ease;
+}
+
+@keyframes seleccionar {
+    0% { transform: scale(0.95); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1.02); }
+}

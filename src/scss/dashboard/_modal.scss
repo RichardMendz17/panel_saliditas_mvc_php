@@ -1,0 +1,206 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.modal
+{
+    position: fixed; /* Cambiado a fixed para mejor comportamiento */
+    background-color: rgb(0 0 0 / .8);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    overflow-y: auto; /* Permite scroll si el contenido es muy largo */
+
+    .formulario
+    {   
+        max-width: 80rem;
+        background-color: v.$blanco;
+        padding: 2rem;
+        margin: 0 auto;
+        transform: translateY(-30rem);
+        transition-property: all;
+        transition-duration: 500ms;
+        transition-timing-function: ease-in-out;
+        opacity: 0;
+        border-radius: 1rem;
+        @include m.tablet
+        {
+            max-width: 70rem;
+        }
+        .lista-seleccionados-titulo
+        {
+            text-align: center;
+            color: v.$negro;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        legend 
+        {
+            font-size: 2rem;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+
+        .input-opciones 
+        {
+            display: grid;
+            grid-template-areas: 
+                "opciones"
+                "campo-modal";
+            gap: 1rem;
+
+            @include m.tablet
+            {
+                grid-template-columns: 1fr;
+            }
+
+            .opciones
+            {
+                grid-area: opciones;
+                display: flex;
+                gap: 2rem;
+                margin: 0 auto;
+            }
+            .submit-nuevo-alumno
+            {
+                @include m.boton(v.$indigo, v.$blanco);
+            }
+            .campo-modal{
+                grid-area: campo-modal;
+            }
+        }
+        .lista-alumnos 
+        {
+            margin: 0 auto;
+            width: 100%;
+            height: 20rem;
+            max-height: 30rem; /* Altura máxima para 10 elementos aprox */
+            overflow-y: auto; /* Scroll vertical cuando sea necesario */
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 2rem;
+            background-color: darken($color: v.$gris, $amount: 20%);
+            
+            /* Estilo para la barra de scroll */
+            &::-webkit-scrollbar 
+            {
+                width: 8px;
+            }
+            
+            &::-webkit-scrollbar-track
+            {
+                background: #f1f1f1;
+            }
+            
+            &::-webkit-scrollbar-thumb
+            {
+                background: #888;
+                border-radius: 4px;
+            }
+            
+            &::-webkit-scrollbar-thumb:hover
+            {
+                background: #555;
+            }
+        }
+
+        .alumno-seleccionado
+        {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+            border-radius: 3px;
+            gap: 2rem;
+            &:last-child
+            {
+                margin-bottom: 0;
+            }
+            .btn-eliminar 
+            {
+                background: none;
+                border: none;
+                color: #ff4444;
+                font-size: 1.2em;
+                cursor: pointer;
+                padding: 0 5px;
+                margin-left: 1rem; /* Espacio entre carrera y botón */
+            }            
+        }
+
+        &.animar {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 1;
+        }
+        
+        &.cerrar {
+            transform: translateY(-200%);
+            opacity: 0;
+        }
+    }
+    .unico-campo
+    {  
+        max-width: 50rem;
+        margin: 0 auto; /* Centra el formulario horizontalmente en la página */
+        .asignar-unico-campo
+        {
+            display: flex;          /* Activa Flexbox */
+            flex-direction: column; /* Apila los elementos verticalmente */
+            align-items: center;
+            margin: 0 auto; /* Centra el formulario horizontalmente en la página */
+
+                          /* Centra horizontalmente los hijos */
+            gap: 1rem;              /* Espacio entre elementos (opcional) */
+            .opciones-unico-campo
+            {
+                display: flex;
+                gap: 1rem;              /* Espacio entre botones */
+                justify-content: center; /* Centra los botones horizontalmente */
+            }
+            .datos-unico-campo
+            {
+                text-align: center;
+                border: 2px solid v.$gris;
+                border-radius: 0.5rem;
+                padding: 1rem;
+
+            }
+        }
+    }
+    .cerrar-modal
+    {
+        @include m.boton(v.$naranja, v.$blanco);
+    }
+    .campo-modal 
+    {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        width: 32rem;
+        gap: 1rem;
+        label {
+            flex: 1 1 5rem;
+        }
+        
+        input {
+            flex: 1 1 27rem;
+            padding: 1rem;
+            border: none;
+            background-color: lighten(v.$gris, 40%);
+        }
+    }    
+}
+
+
+
+
+

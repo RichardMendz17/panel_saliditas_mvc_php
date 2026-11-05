@@ -1,0 +1,93 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+//Rojo
+.boton-rojo-flex {
+    @include m.botonDisplay(v.$rojo, v.$blanco, flex);
+}
+
+.boton-rojo-block {
+    @include m.botonDisplay(v.$rojo, v.$blanco, inline-block);
+}
+.boton-rojo-block-mini {
+    @include m.boton-no-margin-font-size-padding(v.$rojo, v.$blanco, inline-block, 1.2rem, 1rem 1rem);
+}
+
+//Azul
+.boton-azul-flex {
+    @include m.botonDisplay(v.$azul, v.$blanco, flex);
+}
+
+.boton-azul-block {
+    @include m.botonDisplay(v.$azul, v.$blanco, inline-block);
+}
+
+.boton-rojo-no-margin {
+    @include m.boton-no-margin(v.$rojo, v.$blanco, block);
+}
+
+// Amarillo
+.boton-amarillo-flex {
+    @include m.botonDisplay(v.$amarillo, v.$blanco, flex);
+}
+
+.boton-amarillo-block {
+    @include m.botonDisplay(v.$amarillo, v.$blanco, inline-block);
+}
+
+.boton-amarillo-block-mini {
+    @include m.boton-no-margin-font-size-padding(v.$amarillo, v.$blanco, inline-block, 1.2rem, 1rem 1rem);
+}
+
+//Verde
+.boton-verde-flex {
+    @include m.botonDisplay(v.$verde, v.$blanco, flex);
+}
+
+.boton-verde-block {
+    @include m.botonDisplay(v.$verde, v.$blanco, inline-block);
+}
+
+// Blanco
+.boton-blanco-flex {
+    @include m.botonDisplay(v.$negro, v.$blanco, flex);
+}
+
+.boton-blanco-block {
+    @include m.botonDisplay(v.$negro, v.$blanco, inline-block);   
+}
+
+// Cyan
+.boton-cyan-flex {
+    @include m.botonDisplay(v.$cyan, v.$blanco, flex);
+}
+
+.boton-cyan-block {
+    @include m.botonDisplay(v.$cyan, v.$blanco, inline-block);
+}
+
+// Indigo
+.boton-indigo-flex {
+    @include m.botonDisplay(v.$indigo, v.$blanco, flex);
+}
+
+.boton-indigo-block {
+    @include m.botonDisplay(v.$indigo, v.$blanco, inline-block);
+}
+
+// Naranja
+.boton-naranja-flex {
+    @include m.botonDisplay(v.$naranja, v.$blanco, flex);
+}
+
+.boton-naranja-block {
+    @include m.botonDisplay(v.$naranja, v.$blanco, inline-block);
+}
+
+// Morado
+.boton-morado-flex {
+    @include m.botonDisplay(v.$morado, v.$blanco, flex);
+}
+
+.boton-morado-block {
+    @include m.botonDisplay(v.$morado, v.$blanco, inline-block);
+}

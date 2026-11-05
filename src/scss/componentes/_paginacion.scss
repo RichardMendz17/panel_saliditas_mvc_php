@@ -1,0 +1,30 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.paginacion_numeracion
+{
+    color: v.$negro;
+    padding: 1rem;
+
+    &:hover
+    {
+        background-color: darken($color: v.$grisClaro, $amount: 20%);
+    }
+    @include m.tablet
+    {
+        display: inline;
+    }             
+
+}
+
+.actual
+{
+    background-color: v.$azul;
+    font-weight: v.$bold;
+    padding: 1rem;
+    
+    @include m.tablet
+    {
+        display: inline;
+    } 
+}

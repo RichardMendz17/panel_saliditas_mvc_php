@@ -1,0 +1,127 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+
+/* Estilo tipo tabla */
+#listado
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top:  1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+    min-width: 145rem;
+}
+
+.listado-header, .listado-item, .horario-header
+{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.1rem;
+  align-items: center;
+  border-radius: 1rem;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.listado-header
+{
+    font-size: v.$delgada;
+    background-color: v.$grisOscuro;
+    padding: .75rem;
+    color: v.$blanco;
+}
+
+.listado-item
+{
+    background-color: v.$azul-ligero;
+    min-width: 10rem;
+    max-height: 15rem;
+}
+
+
+.columna 
+{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: .5rem;
+}
+
+.opciones 
+{
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Estilos para botones */
+
+.columna-opciones  
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+            button 
+            {
+                border: none;
+                font-size: .9rem;
+                padding: .5rem;
+                text-transform: uppercase;
+                font-weight: 700;
+                border-radius: 1rem;
+
+                &:hover 
+                {
+                    cursor: pointer;
+                }
+            }
+
+        .asignar-calificacion-alumno
+        {
+            background-color: v.$azul;
+            color: v.$blanco;  
+        }
+        .eliminar-alumno {
+            background-color: v.$rojo;
+            color: v.$blanco;
+        }
+}
+
+.columna-estatus
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button 
+    {
+        border: none;
+        font-size: .9rem;
+        padding: .5rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        border-radius: 1rem;
+    }
+    .inscrito 
+    {
+        background-color: v.$turquesa;
+        color: v.$blanco;
+    }
+    .aprobado 
+    {
+        background-color: v.$verde;
+        color: v.$blanco;
+    }
+    .reprobado 
+    {
+        background-color: v.$naranja;
+        color: v.$blanco;
+    }
+    .retirado
+    {
+        background-color: v.$grisOscuro;
+        color: v.$blanco;
+    }
+}
