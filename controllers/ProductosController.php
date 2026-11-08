@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Classes\Paginacion;
 use Model\Producto;
+use Model\ProductoDetalles;
 use MVC\Router;
 
 class ProductosController
@@ -12,7 +13,6 @@ class ProductosController
     public static function index(Router $router)
     {
         $alertas = [];
-        isAuth();
         
         // Obtenemos la pagina actual
         $pagina_actual = $_GET['page'] ?? 1;
@@ -35,19 +35,15 @@ class ProductosController
         $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
         $productos = Producto::paginar($registros_por_pagina, $paginacion->offset());
 
-        $query = "SELECT alumnos.id, alumnos.nombre_Alumno, alumnos.apellido_Paterno, alumnos.apellido_Materno, alumnos.id_periodo_inicio, ";
-        $query .= "alumnos.modalidad, alumnos.condicion_academica, alumnos.estado_academico, ";
-        $query .= "alumnos.comentarios, alumnos.telefono, alumnos.correo_institucional, alumnos.genero, ";
-        $query .= "carreras.nombre_Carrera, periodos.meses_Periodo, periodos.year ";
-        $query .= "FROM alumnos ";
-        $query .= "LEFT OUTER JOIN carreras ON alumnos.id_Carrera = carreras.id ";
-        $query .= "LEFT OUTER JOIN periodos ON alumnos.id_periodo_inicio = periodos.id ";
-        $query .= "ORDER BY alumnos.id DESC ";
+        $query = "SELECT productos.id, productos.nombre, categorias.nombre_categoria as categoria, productos.precio, productos.imagen, productos.activo ";
+        $query .= "FROM productos ";
+        $query .= "LEFT OUTER JOIN categorias ON productos.categoria = categorias.id ";
+        $query .= "ORDER BY productos.id DESC ";
         $query .= "LIMIT {$registros_por_pagina} OFFSET {$paginacion->offset()}";
 
-        $productoDetalles = AlumnoDetalles::SQL($query);
+        $productosDetalles = ProductoDetalles::SQL($query);
 
-        $alertas = Alumno::getAlertas(); 
+        $alertas = Producto::getAlertas(); 
 
         $sidebar_nav = 'Productos';
 
@@ -55,6 +51,8 @@ class ProductosController
             'titulo_pagina' => 'Panel Productos | CMS Restaurantes',
             'sidebar_nav' => $sidebar_nav,
             'productos' => $productos,
+            'productosDetalles' => $productosDetalles,
+            'paginacion' => $paginacion->paginacion(),
             'alertas' => $alertas
 
         ]);
