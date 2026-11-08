@@ -35,6 +35,9 @@
                 <!--<a href="/crear">¿Aún no tienes una cuenta? Obtener una</a>
                     <a href="/olvide">¿Olvidaste tu Password?</a>   -->
             </div>
+
+            <a href="/productos" class="boton-rojo-block">Ver productos</a>
+            <a href="/categorias" class="boton-verde-block">Ver categorias</a>
         </div> <!-- .contenedor-sm-->
     </div>
 </div>

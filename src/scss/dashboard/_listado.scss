@@ -1,3 +1,7 @@
+
+
+@include m.tablet
+{
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
@@ -124,4 +128,6 @@
         background-color: v.$grisOscuro;
         color: v.$blanco;
     }
+}
+
 }
