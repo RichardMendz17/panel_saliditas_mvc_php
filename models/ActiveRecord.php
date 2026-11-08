@@ -8,10 +8,6 @@ class ActiveRecord {
     protected static $columnasDB = [];
     protected static $aliasColumnasDB = [];
 
-    // Cache de tipos de columnas
-    private static $tiposColumnasCache = [];    
-
-
     // Alertas y Mensajes
     protected static $alertas = [];
     //valida que un campo este totalmente vacio
@@ -45,79 +41,11 @@ class ActiveRecord {
             // Creando un nuevo registro
             $resultado = $this->crear();
         }
-
         return $resultado;
     }
 
     public static function obtenerColumnas() {
         return static::$columnasDB;
-    }
-
-    public static function obtenerTiposColumnas()
-    {
-        $tabla = static::$tabla;
-        
-        // Si ya está en caché, devolverlo
-        if (isset(self::$tiposColumnasCache[$tabla])) {
-            return self::$tiposColumnasCache[$tabla];
-        }
-        
-        $query = "DESCRIBE " . $tabla;
-        $resultado = self::$db->query($query);
-        
-        $tipos = [];
-        while ($fila = $resultado->fetch_assoc()) {
-            $campo = $fila['Field'];
-            $tipoDB = $fila['Type'];
-            $tipos[$campo] = self::determinarTipoPHP($tipoDB);
-        }
-        
-        // Guardar en caché
-        self::$tiposColumnasCache[$tabla] = $tipos;
-        return $tipos;
-    }
-
-    // Determinar el tipo PHP según el tipo MySQL
-    private static function determinarTipoPHP($tipoDB)
-    {
-        // Tipos enteros
-        if (strpos($tipoDB, 'int') !== false || 
-            strpos($tipoDB, 'tinyint') !== false ||
-            strpos($tipoDB, 'smallint') !== false ||
-            strpos($tipoDB, 'mediumint') !== false ||
-            strpos($tipoDB, 'bigint') !== false) {
-            
-            // Si es tinyint(1) es booleano
-            if (strpos($tipoDB, 'tinyint(1)') !== false) {
-                return 'boolean';
-            }
-            return 'integer';
-        }
-        
-        // Tipos decimales
-        if (strpos($tipoDB, 'decimal') !== false ||
-            strpos($tipoDB, 'float') !== false ||
-            strpos($tipoDB, 'double') !== false ||
-            strpos($tipoDB, 'real') !== false) {
-            return 'float';
-        }
-        
-        // Tipos de fecha/hora
-        if (strpos($tipoDB, 'date') !== false ||
-            strpos($tipoDB, 'time') !== false ||
-            strpos($tipoDB, 'datetime') !== false ||
-            strpos($tipoDB, 'timestamp') !== false ||
-            strpos($tipoDB, 'year') !== false) {
-            return 'datetime';
-        }
-        
-        // Tipos JSON
-        if (strpos($tipoDB, 'json') !== false) {
-            return 'array';
-        }
-        
-        // Todo lo demás es string
-        return 'string';
     }
 
     // Devuelve las alias para consultas personalizadas
@@ -133,34 +61,6 @@ class ActiveRecord {
         return $resultado;
     }
 
-    // Convertir valor según el tipo
-    private static function castValue($value, $tipo)
-    {
-        if ($value === null) {
-            return null;
-        }
-        
-        switch ($tipo) {
-            case 'integer':
-                return (int) $value;
-                
-            case 'float':
-                return (float) $value;
-                
-            case 'boolean':
-                return (bool) $value;
-                
-            case 'datetime':
-                return $value; // Puedes formatearlo si quieres
-                
-            case 'array':
-                return json_decode($value, true);
-                
-            case 'string':
-            default:
-                return (string) $value;
-        }
-    }
     // Busca un registro por su id
     public static function find($id)
     {
@@ -238,10 +138,8 @@ class ActiveRecord {
         $total = $resultado->fetch_array();
         return array_shift($total);
     }
-
     // Trae la cantidad total de registros con filtros
-    public static function contarConFiltros($query) 
-    {
+    public static function contarConFiltros($query) {
         // Convertimos la consulta SELECT en una consulta COUNT
         $query = preg_replace('/SELECT.*?FROM/i', 'SELECT COUNT(*) as total FROM', $query, 1);
         
@@ -255,120 +153,56 @@ class ActiveRecord {
 
 
     // Busca todos los registros que pertenecen a un id 
-    public static function belongsTo($columna, $valor)
-    {
+    public static function belongsTo($columna, $valor) {
         $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
 
-    // Busca TODOS los registros que coinciden con múltiples columnas y valores
-    public static function belongsToMultiples(array $columnas, array $valores)
-    {
-        if (count($columnas) !== count($valores)) return [];
-        
-        $condiciones = [];
-        foreach ($columnas as $index => $columna) {
-            $valor = self::$db->escape_string($valores[$index]);
-            $condiciones[] = "{$columna} = '{$valor}'";
-        }
-        
-        $sql = "SELECT * FROM " . static::$tabla . " WHERE " . implode(" AND ", $condiciones);
-        $resultado = self::consultarSQL($sql);
-        return $resultado; // Devuelve TODOS los objetos encontrados (array)
-    }
-
     // SQL para Consultas Avanzadas que retorna un array de objetos
-    public static function SQL($consulta)
-    {
+    public static function SQL($consulta) {
         $query = $consulta;
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
 
     // SQLContar para Consultas Avanzadas.
-    public static function SQLContar($consulta)
-    {
+    public static function SQLContar($consulta) {
         $resultado = self::consultarSQL($consulta); // Esto devuelve un arreglo de objetos
         return (string) count($resultado); // Convertimos el número a string
     }
 
     // unicoSQL para Consultas Avanzadas. sin devolver un objeto
-    public static function unicoSQL($consulta)
-    {
+    public static function unicoSQL($consulta) {
         $query = $consulta;
         $resultado = self::$db->query($query);
         return $resultado;
     }    
     
     // Consultar por un registro y obtener un objeto para no tener que ciclar
-    public static function obtenerUnico($query)
-    {
+    public static function obtenerUnico($query) {
         $resultados = self::consultarSQL($query);
         return $resultados[0] ?? null;
     }
 
-    // Método para crear objeto con tipos correctos
-    protected static function crearObjeto($registro)
-    {
-        $objeto = new static;
-        $tipos = static::obtenerTiposColumnas();
-        
-        foreach ($registro as $key => $value) {
-            if (property_exists($objeto, $key)) {
-                $tipo = $tipos[$key] ?? 'string';
-                $objeto->$key = self::castValue($value, $tipo);
-            }
-        }
-        return $objeto;
-    }
-
     // crea un nuevo registro
-    public function crear()
-    {
-        // try 
-        // {
-            $atributos = $this->sanitizarAtributos();
-            
-            $columnas = implode(', ', array_keys($atributos));
-            $valores = implode(', ', array_map(function($valor) {
-                return  is_null($valor) ? 'NULL' : "'" . $valor . "'";
-            }, array_values($atributos)));
+    public function crear() {
+        $atributos = $this->sanitizarAtributos();
+        
+        $columnas = implode(', ', array_keys($atributos));
+        $valores = implode(', ', array_map(function($valor) {
+            return  is_null($valor) ? 'NULL' : "'" . $valor . "'";
+        }, array_values($atributos)));
 
-            $query = "INSERT INTO " . static::$tabla . " ($columnas) VALUES ($valores)";
-            //debuguear($query);
-            $resultado = self::$db->query($query);
-
-            // Si la consulta falla, devolver el error de MySQL
-            if ($resultado === false)
-            {
-                return [
-                    'resultado' => false,
-                    'error' => self::$db->error,
-                    'codigo' => self::$db->errno,
-                    'query' => $query // Opcional: para depuración
-                ];
-            }
-            return [
-                'resultado' => $resultado ? true : false,
-                'id' => $resultado ? self::$db->insert_id : self::$db->error
-            ];
-
-            // return [
-            //     'resultado' => $resultado ,
-            //     'id' => self::$db->insert_id
-            // ]; 
-        //  }
-
-        // catch (\mysqli_sql_exception $e)
-        // {
-        //     return false;
-        //     //Se aplico un try catch porque en ocasiones no se crea el nuevo registro
-        // }
+        $query = "INSERT INTO " . static::$tabla . " ($columnas) VALUES ($valores)";
+        $resultado = self::$db->query($query);
+        return [
+            'resultado' => $resultado,
+            'id' => self::$db->insert_id
+        ];
     }
-    
-    public function actualizar()
-    {
+
+    public function actualizar() {
         // Sanitizar los datos
         $atributos = $this->sanitizarAtributos();
         // Iterar para ir agregando cada campo de la BD
@@ -405,10 +239,6 @@ class ActiveRecord {
         
             $resultado = self::$db->query($query);
             return $resultado;
-            // return [
-            //     'resultado' => $resultado ? true : false,
-            //     'id' => $resultado ? self::$db->insert_id : $query
-            // ]; 
         } 
         catch (\mysqli_sql_exception $e)
         {
@@ -424,8 +254,7 @@ class ActiveRecord {
 
         // Iterar los resultados
         $array = [];
-        while($registro = $resultado->fetch_assoc())
-        {
+        while($registro = $resultado->fetch_assoc()) {
             $array[] = static::crearObjeto($registro);
         }
         // liberar la memoria
@@ -434,9 +263,20 @@ class ActiveRecord {
         return $array;
     }
 
+    protected static function crearObjeto($registro) {
+        $objeto = new static;
+        foreach($registro as $key => $value ) {
+            if(property_exists( $objeto, $key  )) {
+                $objeto->$key = $value;
+            }
+        }
+
+        
+        return $objeto;
+    }
+
     // Identificar y unir los atributos de la BD
-    public function atributos()
-    {
+    public function atributos() {
         $atributos = [];
         foreach(static::$columnasDB as $columna) {
             if($columna === 'id' && !$this instanceof Alumno && !$this instanceof Personal) continue;
@@ -461,45 +301,12 @@ class ActiveRecord {
         return $sanitizado;
     }
 
-    public function sincronizar($args=[])
-    { 
-        foreach($args as $key => $value)
-        {
-            if(property_exists($this, $key) && !is_null($value))
-            {
-                $this->$key = $value;
-            }
+
+    public function sincronizar($args=[]) { 
+        foreach($args as $key => $value) {
+          if(property_exists($this, $key) && !is_null($value)) {
+            $this->$key = $value;
+          }
         }
     }
-
-    /**
-     * Obtiene un solo valor de la base de datos (ej: SUM, COUNT, MAX, etc.)
-     * 
-     * @param string $consulta La consulta SQL
-     * @return mixed El valor obtenido o null si no hay resultados
-     */
-    public static function obtenerValor($consulta, $default = 0)
-    {
-        $resultado = self::consultarSQL($consulta);
-        
-        // Si no hay resultados o está vacío
-        if (empty($resultado) || !isset($resultado[0]))
-        {
-            return $default;
-        }
-        
-        // Obtener el primer objeto y extraer su primer valor
-        $primerObjeto = $resultado[0];
-        $propiedades = get_object_vars($primerObjeto);
-        $primerValor = reset($propiedades);
-        
-        return $primerValor ?? $default;
-    }
-
-    public static function obtenerValorFormateado($consulta, $decimales = 2)
-    {
-        $valor = self::obtenerValor($consulta);
-        return number_format((float) $valor, $decimales);
-    }
-    
 }

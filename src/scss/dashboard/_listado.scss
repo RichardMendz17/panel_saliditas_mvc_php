@@ -1,133 +1,204 @@
-
-
-@include m.tablet
-{
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
+ .listado-header
+ {
+    display: none;
+ }
 
-/* Estilo tipo tabla */
-#listado
-{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-top:  1rem;
+ .listado-item
+ {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.2rem;
-    min-width: 145rem;
-}
-
-.listado-header, .listado-item, .horario-header
-{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-  gap: 0.1rem;
-  align-items: center;
-  border-radius: 1rem;
-  text-align: center;
-  padding: 0.5rem;
-}
-
-.listado-header
-{
-    font-size: v.$delgada;
-    background-color: v.$grisOscuro;
-    padding: .75rem;
-    color: v.$blanco;
-}
-
-.listado-item
-{
-    background-color: v.$azul-ligero;
-    min-width: 10rem;
-    max-height: 15rem;
-}
-
-
-.columna 
-{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: .5rem;
-}
-
-.opciones 
-{
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-/* Estilos para botones */
-
-.columna-opciones  
-{
-    display: flex;
+    gap: 2rem;
     align-items: center;
-    justify-content: center;
-            button 
-            {
-                border: none;
-                font-size: .9rem;
-                padding: .5rem;
-                text-transform: uppercase;
-                font-weight: 700;
-                border-radius: 1rem;
+    justify-content: space-around;
+    grid-template-columns: 20rem 1fr;
+    grid-template-rows: repeat(3, auto);
+    list-style: none;
+    background-color: v.$negro;
+    margin-bottom: 2rem;
+    img
+    {
+       max-width: 20rem; 
+    }
 
-                &:hover 
-                {
-                    cursor: pointer;
-                }
-            }
+    .imagen_producto
+    {
+        grid-row: 1 / 4;
+        grid-column: 1;
+        border: solid ;
+        border-radius: 2rem;
+        border-color: v.$naranja;
+    }
 
-        .asignar-calificacion-alumno
+    .nombre_producto
+    {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .id_producto
+    {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .precio_producto
+    {
+        grid-column: 3;
+        grid-row: 2;
+    }
+
+    .categoria_producto
+    {
+        grid-column: 2 /4;
+        grid-row: 3;
+    }
+
+    .opciones_producto
+    {
+        grid-row: 5;
+        grid-column: 1 / 3;
+        margin: 0;
+    }
+
+    p
+    {
+        margin: 0;
+    }
+
+ }
+
+@include m.tablet
+{
+
+    /* Estilo tipo tabla */
+    #listado
+    {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-top:  1rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+        min-width: 145rem;
+    }
+
+    .listado-header, .listado-item, .horario-header
+    {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 0.1rem;
+    align-items: center;
+    border-radius: 1rem;
+    text-align: center;
+    padding: 0.5rem;
+    }
+
+    .listado-header
+    {
+        font-size: v.$delgada;
+        background-color: v.$grisOscuro;
+        padding: .75rem;
+        color: v.$blanco;
+    }
+
+    .listado-item
+    {
+        background-color: v.$azul-ligero;
+        min-width: 10rem;
+        max-height: 15rem;
+
+        span
         {
-            background-color: v.$azul;
-            color: v.$blanco;  
+            display: none;
         }
-        .eliminar-alumno {
-            background-color: v.$rojo;
+    }
+
+
+    .columna 
+    {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: .5rem;
+    }
+
+    .opciones 
+    {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    /* Estilos para botones */
+
+    .columna-opciones  
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+                button 
+                {
+                    border: none;
+                    font-size: .9rem;
+                    padding: .5rem;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    border-radius: 1rem;
+
+                    &:hover 
+                    {
+                        cursor: pointer;
+                    }
+                }
+
+            .asignar-calificacion-alumno
+            {
+                background-color: v.$azul;
+                color: v.$blanco;  
+            }
+            .eliminar-alumno {
+                background-color: v.$rojo;
+                color: v.$blanco;
+            }
+    }
+
+    .columna-estatus
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        button 
+        {
+            border: none;
+            font-size: .9rem;
+            padding: .5rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            border-radius: 1rem;
+        }
+        .inscrito 
+        {
+            background-color: v.$turquesa;
             color: v.$blanco;
         }
-}
-
-.columna-estatus
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    button 
-    {
-        border: none;
-        font-size: .9rem;
-        padding: .5rem;
-        text-transform: uppercase;
-        font-weight: 700;
-        border-radius: 1rem;
+        .aprobado 
+        {
+            background-color: v.$verde;
+            color: v.$blanco;
+        }
+        .reprobado 
+        {
+            background-color: v.$naranja;
+            color: v.$blanco;
+        }
+        .retirado
+        {
+            background-color: v.$grisOscuro;
+            color: v.$blanco;
+        }
     }
-    .inscrito 
-    {
-        background-color: v.$turquesa;
-        color: v.$blanco;
-    }
-    .aprobado 
-    {
-        background-color: v.$verde;
-        color: v.$blanco;
-    }
-    .reprobado 
-    {
-        background-color: v.$naranja;
-        color: v.$blanco;
-    }
-    .retirado
-    {
-        background-color: v.$grisOscuro;
-        color: v.$blanco;
-    }
-}
 
 }
